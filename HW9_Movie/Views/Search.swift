@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftyJSON
 
 struct Search: View {
     var body: some View {
@@ -13,10 +14,10 @@ struct Search: View {
             ScrollView {
                 Text("Search Bar").frame(height: 80, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 VStack {
-                    SearchResultItem()
-                    SearchResultItem()
-                    SearchResultItem()
-                    SearchResultItem()
+//                    SearchResultItem()
+//                    SearchResultItem()
+//                    SearchResultItem()
+//                    SearchResultItem()
                 }
             }.navigationTitle("Search")
         }

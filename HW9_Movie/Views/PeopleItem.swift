@@ -6,23 +6,24 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct PeopleItem: View {
-    var image: Image
+    var cast: Cast
     
     var body: some View {
         VStack {
-            image.resizable().frame(width: 120, height: 120, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            KFImage(URL(string: cast.photo)!).resizable().frame(width: 80, height: 120, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                 .overlay(Circle().stroke(Color.white, lineWidth: 0))
                 .shadow(radius: 7)
-            Text("The name of the cast").frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/, alignment: .center)
+            Text(cast.name).font(.caption).padding(.top, -25.0).frame(width: 80, alignment: .center)
         }
     }
 }
 
 struct PeopleItem_Previews: PreviewProvider {
     static var previews: some View {
-        PeopleItem(image: Image("cast_placeholder"))
+        PeopleItem(cast: castsDemo[0])
     }
 }

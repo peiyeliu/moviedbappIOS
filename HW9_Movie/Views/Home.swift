@@ -25,7 +25,7 @@ struct Home: View {
                         Text("Top Rated")
                             .font(.title)
                             .fontWeight(.bold)
-                        MovieTVItemScroll()
+                        //MovieTVItemScroll()
                     }
 
                 
@@ -33,7 +33,7 @@ struct Home: View {
                         Text("Top Rated")
                             .font(.title)
                             .fontWeight(.bold)
-                        MovieTVItemScroll()
+                        //MovieTVItemScroll()
                     }
                 
                    NavigationLink(destination: ResultPage()) {

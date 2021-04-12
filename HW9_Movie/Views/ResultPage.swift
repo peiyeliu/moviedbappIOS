@@ -34,7 +34,7 @@ struct ResultPage: View {
       
                     Text("Reviews").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
                     Text("Top 3 reviews").font(.title3)
-                    ReviewItem()
+                    //ReviewItem()
                 }
                 Divider()
                 VStack (alignment: .leading){

@@ -1,0 +1,6 @@
+framework module Pods_HW9_Movie_HW9_MovieUITests {
+  umbrella header "Pods-HW9_Movie-HW9_MovieUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

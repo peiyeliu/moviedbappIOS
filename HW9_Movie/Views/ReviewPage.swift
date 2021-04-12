@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct ReviewPage: View {
+    var review: Review
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack (alignment: .leading){
-                    Text("Review Title This is the review title").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    Text("A review by \(review.author)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     Spacer()
-                    Text("Review Title This is the review title").font(.title3)
+                    Text("Written by \(review.author) on \(review.time)").font(.title3).foregroundColor(Color.gray)
                     Spacer()
-                    Text("Star 5.0/5.0").font(.title3)
-                    Spacer()
-                    Text("Review Title This is the review title").font(.title3)
-                }
+                    Text("Star \(review.rate)/5.0").font(.title3)
+                    Divider();
+                    Text(review.content).font(.title3)
+                }.padding(.horizontal)
             }
         }
     }
@@ -27,6 +28,6 @@ struct ReviewPage: View {
 
 struct ReviewPage_Previews: PreviewProvider {
     static var previews: some View {
-        ReviewPage()
+        ReviewPage(review: reviewsDemo[0])
     }
 }
