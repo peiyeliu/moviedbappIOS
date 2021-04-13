@@ -13,7 +13,7 @@ struct MovieTVItem: View {
     var item: MovieTVBrief;
     var body: some View {
         NavigationLink (
-            destination: ResultPage()){
+            destination: ResultPage(detail: MovieTVDetail(id: 0, year: "2022", media: "tv", mediaStr: "TV Shows", name: "None", poster: "", genre: "Magic", rate: "5.0", youtube: ""))){
             VStack{
                 KFImage(URL(string: item.poster)!).resizable().frame(width: 120, height: 180, alignment: .center)
                 Text(item.name).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).frame(width: 120)
@@ -26,6 +26,6 @@ struct MovieTVItem: View {
 struct MovieTVItem_Previews: PreviewProvider {
     static var previews: some View {
         //MovieTVItem(item: MovieTVBrief(id: 0, year: "2020", media: "movie", mediaStr: "Movies", name: "The world", poster: "movie_placeholder"));
-        MovieTVItem(item: currMovies[0]);
+        MovieTVItem(item: currMoviesDemo[0]);
     }
 }

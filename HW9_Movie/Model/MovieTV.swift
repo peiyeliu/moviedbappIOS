@@ -6,6 +6,13 @@
 //
 import Foundation
 
+struct MoiveTVBriefList: Codable{
+    var results: [MovieTVBrief]
+    init(results: [MovieTVBrief]) {
+        self.results = results
+    }
+}
+
 struct MovieTVBrief: Hashable, Codable, Identifiable{
     var id: Int;
     var year: String;
@@ -65,6 +72,13 @@ struct MovieTVDetail: Hashable, Identifiable, Codable{
     }
 }
 
+struct CastList: Codable{
+    var results: [Cast]
+    init(results: [Cast]) {
+        self.results = results
+    }
+}
+
 struct Cast: Hashable, Identifiable, Codable{
     var id: Int;
     var name: String;
@@ -73,6 +87,14 @@ struct Cast: Hashable, Identifiable, Codable{
         self.id = id;
         self.name = name;
         self.photo = photo;
+    }
+}
+
+
+struct ReviewList: Codable{
+    var results: [Review]
+    init(results: [Review]) {
+        self.results = results
     }
 }
 
@@ -91,12 +113,12 @@ struct Review: Hashable, Identifiable, Codable{
     }
 }
 
-struct HomePage: Codable{
-    var currMov: [MovieTVBrief];
-    var topMov: [MovieTVBrief];
-    var popMov: [MovieTVBrief];
-    var currTv: [MovieTVBrief];
-    var topTv: [MovieTVBrief];
-    var popTv: [MovieTVBrief];
-}
+//struct HomePage: Codable{
+//    var currMov: [MovieTVBrief];
+//    var topMov: [MovieTVBrief];
+//    var popMov: [MovieTVBrief];
+//    var currTv: [MovieTVBrief];
+//    var topTv: [MovieTVBrief];
+//    var popTv: [MovieTVBrief];
+//}
 

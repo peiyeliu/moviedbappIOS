@@ -10,7 +10,7 @@ import SwiftUI
 struct Home: View {
     var body: some View {
         NavigationView {
-            List {
+            ScrollView {
                     VStack {
                         Text("Now Playing")
                             .font(.title)
@@ -19,27 +19,27 @@ struct Home: View {
                 
                     VStack {
                         Text("Here is the Now Playing")
-                    }.frame(height: 400)
+                    }.frame(height: 200)
                 
-                    VStack {
-                        Text("Top Rated")
+                    VStack(alignment: .leading) {
+                        Text("Top Rated Movies")
                             .font(.title)
                             .fontWeight(.bold)
-                        //MovieTVItemScroll()
+                        MovieTVItemScroll(urlQuery: "topmovie")
                     }
 
-                
-                    VStack {
-                        Text("Top Rated")
+                    VStack (alignment: .leading) {
+                        Text("Popular")
                             .font(.title)
                             .fontWeight(.bold)
-                        //MovieTVItemScroll()
+                        MovieTVItemScroll(urlQuery: "popmovie")
                     }
                 
-                   NavigationLink(destination: ResultPage()) {
+                   NavigationLink(destination: ResultPage(detail: MovieTVDetail(id: 0, year: "2022", media: "tv", mediaStr: "TV Shows", name: "None", poster: "", genre: "Magic", rate: "5.0", youtube: ""))) {
                        Text("Go to detail page")
                    }
-                }
+            }
+            .padding(.horizontal)
                 .navigationBarTitle("USC Film")
                 .navigationBarItems(
                     trailing:
