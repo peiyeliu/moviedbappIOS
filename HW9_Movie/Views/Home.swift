@@ -10,7 +10,7 @@ import SwiftUI
 struct Home: View {
     var body: some View {
         NavigationView {
-            ScrollView {
+            List {
                     VStack {
                         Text("Now Playing")
                             .font(.title)
@@ -35,9 +35,7 @@ struct Home: View {
                         MovieTVItemScroll(urlQuery: "popmovie")
                     }
                 
-                   NavigationLink(destination: ResultPage(detail: MovieTVDetail(id: 0, year: "2022", media: "tv", mediaStr: "TV Shows", name: "None", poster: "", genre: "Magic", rate: "5.0", youtube: ""))) {
-                       Text("Go to detail page")
-                   }
+
             }
             .padding(.horizontal)
                 .navigationBarTitle("USC Film")

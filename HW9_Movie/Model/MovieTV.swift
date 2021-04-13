@@ -49,26 +49,36 @@ struct MovieTVBriefWithRate: Hashable, Codable, Identifiable{
     }
 }
 
+
+
+struct MovieTVDetailList: Codable{
+    var results: [MovieTVDetail]
+    init(results: [MovieTVDetail]) {
+        self.results = results
+    }
+}
+
 struct MovieTVDetail: Hashable, Identifiable, Codable{
     var id: Int;
     var year: String;
     var media: String;
     var mediaStr: String;
     var name: String;
-    var poster: String;
     var genre: String;
     var rate: String;
     var youtube: String;
-    init(id: Int, year: String, media: String, mediaStr: String, name: String, poster: String, genre: String, rate: String, youtube: String) {
+    var overview: String;
+    
+    init(id: Int, year: String, media: String, mediaStr: String, name: String, poster: String, genre: String, rate: String, youtube: String, overview: String) {
         self.id = id;
         self.year = year;
         self.media = media;
         self.mediaStr = mediaStr;
         self.name = name;
-        self.poster = poster;
         self.genre = genre;
         self.rate = rate;
         self.youtube = youtube;
+        self.overview = overview;
     }
 }
 
@@ -113,12 +123,4 @@ struct Review: Hashable, Identifiable, Codable{
     }
 }
 
-//struct HomePage: Codable{
-//    var currMov: [MovieTVBrief];
-//    var topMov: [MovieTVBrief];
-//    var popMov: [MovieTVBrief];
-//    var currTv: [MovieTVBrief];
-//    var topTv: [MovieTVBrief];
-//    var popTv: [MovieTVBrief];
-//}
 

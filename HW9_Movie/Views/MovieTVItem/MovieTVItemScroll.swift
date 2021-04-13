@@ -33,7 +33,6 @@ struct MovieTVItemScroll: View {
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode(MoiveTVBriefList.self, from: data) {
                     DispatchQueue.main.async {
-                        debugPrint(decodedResponse)
                         self.jsonList = decodedResponse.results
                     }
                     return

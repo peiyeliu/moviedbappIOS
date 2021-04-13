@@ -21,7 +21,6 @@ struct PeopleScroll: View {
             }
         }.padding(.horizontal).onAppear(perform: {
                 loadcasts()
-            
         })
     }
     

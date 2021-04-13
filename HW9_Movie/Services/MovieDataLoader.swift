@@ -31,7 +31,7 @@ var popTVs: [MovieTVBrief] = []
 var searchResultArray:[MovieTVBriefWithRate] = []
 
 //detail data
-var moviedetail: MovieTVDetail = MovieTVDetail(id: 0, year: "", media: "", mediaStr: "", name: "", poster: "", genre: "", rate: "", youtube: "")
+
 var casts: [Cast] = []
 var reviews: [Review] = []
 
