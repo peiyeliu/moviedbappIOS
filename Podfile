@@ -19,5 +19,7 @@ target 'HW9_Movie' do
   pod 'SwiftyJSON', '~> 4.0'
   pod 'Alamofire'
   pod 'Kingfisher', '~> 6.2'
+  pod "youtube-ios-player-helper"
+  pod 'YouTubePlayer'
 
 end

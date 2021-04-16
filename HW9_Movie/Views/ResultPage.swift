@@ -6,28 +6,34 @@
 //
 
 import SwiftUI
+import youtube_ios_player_helper
 
 struct ResultPage: View {
     var media: String
     var id: Int
     
     @State private var jsonData = MovieTVDetail(id: 0, year: "2022", media: "dummy", mediaStr: "dummy", name: "dummy", poster: "dummy", genre: "dummy", rate: "dummy", youtube: "dummy", overview: "dummy")
-    
+
     
     var body: some View {
         VStack {
             ScrollView {
                 VStack{
-                    Text("Here is the youtube")
+                    YoutubePicker(text: jsonData.youtube)
                 }.frame(height: 300)
                     
-                
+            
                 VStack (alignment: .leading){
                     Text(jsonData.name).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
                     Spacer()
                     Text("\(jsonData.year) | \(jsonData.genre)").font(.title3)
                     Spacer()
-                    Text("Star \(jsonData.rate)").font(.title3)
+                    HStack{
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.red)
+                        Text("\(jsonData.rate)/5.0").font(.title3)
+                    }
+                    
                     Spacer()
                     Text(jsonData.overview)
                 }.onAppear(perform: {
@@ -38,20 +44,17 @@ struct ResultPage: View {
                 VStack (alignment: .leading){
         
                     Text("Cast & Crew").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                    Text("10 casts and crews").font(.title3)
                     PeopleScroll(media: media, id: id)
                 }
                 Divider()
                 VStack (alignment: .leading){
       
                     Text("Reviews").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                    Text("Top 3 reviews").font(.title3)
                     ReviewScroll(media: media, id: id)
                 }
                 Divider()
                 VStack (alignment: .leading){
-                    Text("Recommended Movies or TV shows").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                    Text("Recommended").font(.title3)
+                    Text("Recommended \(jsonData.mediaStr)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
                     MovieTVItemScroll(urlQuery: "recommend/\(media)/\(id)")
                 }.frame(height: 300)
             }

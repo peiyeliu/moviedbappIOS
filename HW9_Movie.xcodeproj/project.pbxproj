@@ -10,6 +10,8 @@
 		2001213E2621564200F35D43 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2001213D2621564200F35D43 /* Search.swift */; };
 		200121432621566B00F35D43 /* Watchlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200121422621566B00F35D43 /* Watchlist.swift */; };
 		200121482621582800F35D43 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200121472621582800F35D43 /* Home.swift */; };
+		2011E9072629738B00DE75AD /* youtubeVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2011E9062629738B00DE75AD /* youtubeVideo.swift */; };
+		2011E91726297DC300DE75AD /* youtube.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2011E91626297DC300DE75AD /* youtube.storyboard */; };
 		204213282623F3CF0046EF76 /* reviewdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 204213262623F3CF0046EF76 /* reviewdata.json */; };
 		204213292623F3CF0046EF76 /* castdata.json in Resources */ = {isa = PBXBuildFile; fileRef = 204213272623F3CF0046EF76 /* castdata.json */; };
 		2042132E2623F8A40046EF76 /* PeopleScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2042132D2623F8A40046EF76 /* PeopleScroll.swift */; };
@@ -59,6 +61,8 @@
 		2001213D2621564200F35D43 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		200121422621566B00F35D43 /* Watchlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist.swift; sourceTree = "<group>"; };
 		200121472621582800F35D43 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		2011E9062629738B00DE75AD /* youtubeVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = youtubeVideo.swift; sourceTree = "<group>"; };
+		2011E91626297DC300DE75AD /* youtube.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = youtube.storyboard; sourceTree = "<group>"; };
 		204213262623F3CF0046EF76 /* reviewdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = reviewdata.json; sourceTree = "<group>"; };
 		204213272623F3CF0046EF76 /* castdata.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = castdata.json; sourceTree = "<group>"; };
 		2042132D2623F8A40046EF76 /* PeopleScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleScroll.swift; sourceTree = "<group>"; };
@@ -190,9 +194,11 @@
 				20664A2E26215461007B3AED /* HomeScreen.swift */,
 				20BBD82F26253FA400A59754 /* Review */,
 				2059CAC12622231F003CF33B /* ResultPage.swift */,
+				2011E9062629738B00DE75AD /* youtubeVideo.swift */,
 				20BBD83526253FCF00A59754 /* People */,
 				20BBD841262541F500A59754 /* MovieTVItem */,
 				200121422621566B00F35D43 /* Watchlist.swift */,
+				2011E91626297DC300DE75AD /* youtube.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -396,6 +402,7 @@
 				206993BE261F9CC3003E27D2 /* Assets.xcassets in Resources */,
 				204213282623F3CF0046EF76 /* reviewdata.json in Resources */,
 				20480EF72623B862009BDA7A /* searchdata.json in Resources */,
+				2011E91726297DC300DE75AD /* youtube.storyboard in Resources */,
 				20480EF82623B862009BDA7A /* moviedetaildata.json in Resources */,
 				20480EF92623B862009BDA7A /* homepagedata.json in Resources */,
 			);
@@ -536,6 +543,7 @@
 				2059CADF2622A265003CF33B /* SearchResultItem.swift in Sources */,
 				20F4E30F2624EF8D0097C167 /* MovieURLTest.swift in Sources */,
 				2059CACD26226CC9003CF33B /* MovieTVItem.swift in Sources */,
+				2011E9072629738B00DE75AD /* youtubeVideo.swift in Sources */,
 				200121432621566B00F35D43 /* Watchlist.swift in Sources */,
 				2059CAD526226DC0003CF33B /* PeopleItem.swift in Sources */,
 				200121482621582800F35D43 /* Home.swift in Sources */,

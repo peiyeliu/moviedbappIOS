@@ -27,8 +27,12 @@ struct SearchResultItem: View {
                     .padding(.top, 170.0)
                     .padding(/*@START_MENU_TOKEN@*/.horizontal, -160.0/*@END_MENU_TOKEN@*/).lineLimit(1)
                 
-                Text("star \(search.rate)/5.0").fontWeight(.bold).foregroundColor(Color.white).padding(/*@START_MENU_TOKEN@*/.top, -95.0/*@END_MENU_TOKEN@*/).padding(/*@START_MENU_TOKEN@*/.leading, 230.0/*@END_MENU_TOKEN@*/)
-            }
+                
+                HStack {
+                    Image(systemName: "star.fill")
+                        .foregroundColor(.red)
+                    Text(" \(search.rate)/5.0").fontWeight(.bold).foregroundColor(Color.white)
+                }.padding(/*@START_MENU_TOKEN@*/.top, -95.0/*@END_MENU_TOKEN@*/).padding(/*@START_MENU_TOKEN@*/.leading, 230.0/*@END_MENU_TOKEN@*/)            }
         }.buttonStyle(PlainButtonStyle())
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct ReviewPage: View {
     var review: Review
     var body: some View {
-        NavigationView {
+        VStack {
             ScrollView {
                 VStack (alignment: .leading){
                     Text("A review by \(review.author)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
