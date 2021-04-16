@@ -12,10 +12,10 @@ struct SearchResultItem: View {
     var search: MovieTVBriefWithRate
     var body: some View {
         NavigationLink(
-            destination: ResultPage(media: "tv", id: 1720) ){
+            destination: ResultPage(media: search.mediaStr, id: search.id) ){
             ZStack {
                 KFImage(URL(string: search.poster)!).resizable().frame(width: 340
-                                                                , height: 200, alignment: .center)
+                                                                       , height: 200, alignment: .center).cornerRadius(20)
                 Text("\(search.mediaStr)(\(search.year))")
                     .fontWeight(.bold)
                     .foregroundColor(Color.white)

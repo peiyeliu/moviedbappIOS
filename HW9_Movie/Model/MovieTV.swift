@@ -30,6 +30,13 @@ struct MovieTVBrief: Hashable, Codable, Identifiable{
     }
 }
 
+struct MoiveTVBriefWithRateList: Codable{
+    var results: [MovieTVBriefWithRate]
+    init(results: [MovieTVBriefWithRate]) {
+        self.results = results
+    }
+}
+
 struct MovieTVBriefWithRate: Hashable, Codable, Identifiable{
     var id: Int;
     var year: String;

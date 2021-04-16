@@ -15,13 +15,11 @@ struct MovieTVItem: View {
         NavigationLink (
             destination: ResultPage(media: item.media, id: item.id)){
             VStack{
-                KFImage(URL(string: item.poster)!).resizable().frame(width: 120, height: 180, alignment: .center)
+                KFImage(URL(string: item.poster)!).resizable().frame(width: 120, height: 180, alignment: .center).cornerRadius(20)
                 Text(item.name).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).frame(width: 120)
                 Text("(\(item.year))")
             }
-        }.buttonStyle(PlainButtonStyle()).onDisappear(perform: {
-            navigationBarHidden(true)
-        })
+        }.buttonStyle(PlainButtonStyle())
     }
 }
 

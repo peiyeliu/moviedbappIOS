@@ -6,23 +6,52 @@
 //
 
 import SwiftUI
-import SwiftyJSON
 
 struct Search: View {
+    
+    @State private var jsonList = [MovieTVBriefWithRate]()
+    @State private var urlQuery : String = ""
+    
     var body: some View {
         NavigationView {
             ScrollView {
-                Text("Search Bar").frame(height: 80, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                VStack {
-//                    SearchResultItem()
-//                    SearchResultItem()
-//                    SearchResultItem()
-//                    SearchResultItem()
+                SearchBar(text: $urlQuery)
+                    List{
+                        ForEach(jsonList){
+                            item in
+                            //Text(item.name)
+                            SearchResultItem(search: item)
+                        }
+                    }
+            }.onAppear(perform: {
+                loadmovies()
+            })
+            //.navigationTitle("Search")
+            
+        }
+        
+       
+    
+    }
+    func loadmovies() {
+        guard let url = URL(string: getSearchURL(keyword: urlQuery)) else {
+            print("Invalid URL")
+            return
+        }
+        let request = URLRequest(url: url)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                if let decodedResponse = try? JSONDecoder().decode(MoiveTVBriefWithRateList.self, from: data) {
+                    DispatchQueue.main.async {
+                        self.jsonList = decodedResponse.results
+                    }
+                    return
                 }
             }
-            //.navigationTitle("Search")
-        }
-    
+
+            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+        }.resume()
     }
 }
 

@@ -6,8 +6,6 @@
 //
 import SwiftUI
 import Foundation
-import Alamofire
-import SwiftyJSON
 
 var baseURL = "http://localhost:3000/"
 
@@ -67,4 +65,8 @@ func getURLString(str: String) -> String{
 
 func getURLStringWithMediaAndID(query: String, media: String, id: Int) -> String{
     return baseURL + query + "/" + media + "/" + String(id);
+}
+
+func getSearchURL(keyword: String) ->String{
+    return baseURL + "search/" + keyword;
 }

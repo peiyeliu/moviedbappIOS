@@ -12,6 +12,7 @@ struct HW9_MovieApp: App {
     var body: some Scene {
         WindowGroup {
             HomeScreen()
+            //ImageCarouselViewWapper(urlQuery: "currentmovie")
             //Home()
             //Search()
             //MovieTVItemScroll(urlQuery: "topmovie")

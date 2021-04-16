@@ -7,16 +7,9 @@
 
 import SwiftUI
 import UIKit
-import YouTubePlayer
 
-// 1
-
-import UIKit
 import youtube_ios_player_helper
  
-//class YoutubeView: UIView {
-//    var playerView: YTPlayerView
-//}
 
 struct YoutubePicker: UIViewRepresentable{
     

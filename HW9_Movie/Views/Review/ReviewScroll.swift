@@ -13,13 +13,16 @@ struct ReviewScroll: View {
     
     @State private var jsonList = [Review]()
     var body: some View {
-        VStack{
+        VStack (alignment: .leading){
+            if(!jsonList.isEmpty){
+                Text("Reviews").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
+            }
             ForEach(self.jsonList){ item in
                 ReviewItem(review: item);
             }
         }.onAppear(perform: {
             loadreviews()
-        })
+        }).padding(.horizontal)
     }
     
     func loadreviews() {

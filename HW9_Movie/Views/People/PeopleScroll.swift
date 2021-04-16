@@ -13,15 +13,18 @@ struct PeopleScroll: View {
     
     @State private var jsonList = [Cast]()
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false){
-            HStack(alignment: .top){
-                ForEach(self.jsonList){ item in
-                    PeopleItem(cast: item);
+        
+        VStack (alignment:.leading){
+            if(!jsonList.isEmpty){
+                Text("Cast & Crew").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)}
+            ScrollView(.horizontal, showsIndicators: false){
+                HStack(alignment: .top){
+                    ForEach(self.jsonList){ item in
+                        PeopleItem(cast: item);
+                    }
                 }
-            }
-        }.padding(.horizontal).onAppear(perform: {
-                loadcasts()
-        })
+            }.onAppear(perform: {loadcasts()})
+        }.padding(.horizontal)
     }
     
     func loadcasts() {

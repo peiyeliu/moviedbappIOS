@@ -13,6 +13,7 @@ struct ResultPage: View {
     var id: Int
     
     @State private var jsonData = MovieTVDetail(id: 0, year: "2022", media: "dummy", mediaStr: "dummy", name: "dummy", poster: "dummy", genre: "dummy", rate: "dummy", youtube: "dummy", overview: "dummy")
+    @Environment(\.openURL) var openURL
 
     
     var body: some View {
@@ -20,42 +21,33 @@ struct ResultPage: View {
             ScrollView {
                 VStack{
                     YoutubePicker(text: jsonData.youtube)
-                }.frame(height: 300)
+                }.frame(height: 260).padding(.horizontal)
                     
             
                 VStack (alignment: .leading){
                     Text(jsonData.name).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                    Spacer()
-                    Text("\(jsonData.year) | \(jsonData.genre)").font(.title3)
-                    Spacer()
+                    Text("\(jsonData.year) | \(jsonData.genre)").font(.title3).padding(.top, 5.0)
                     HStack{
                         Image(systemName: "star.fill")
                             .foregroundColor(.red)
                         Text("\(jsonData.rate)/5.0").font(.title3)
-                    }
-                    
-                    Spacer()
-                    Text(jsonData.overview)
+                    }.padding(.top, 5.0)
+                    Text(jsonData.overview).padding(.top, 5.0)
                 }.onAppear(perform: {
                     loaddetail()
                 })
                 
                 Divider()
                 VStack (alignment: .leading){
-        
-                    Text("Cast & Crew").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
                     PeopleScroll(media: media, id: id)
                 }
                 Divider()
                 VStack (alignment: .leading){
-      
-                    Text("Reviews").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
                     ReviewScroll(media: media, id: id)
                 }
                 Divider()
                 VStack (alignment: .leading){
-                    Text("Recommended \(jsonData.mediaStr)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                    MovieTVItemScroll(urlQuery: "recommend/\(media)/\(id)")
+                    MovieTVItemScroll(urlQuery: "recommend/\(media)/\(id)", header: "Recommended")
                 }.frame(height: 300)
             }
             }.navigationBarItems(
@@ -69,13 +61,13 @@ struct ResultPage: View {
                         }
                         
                         Button(action:{
-                            print("Bookmark button pressed")
+                            openURL(URL(string: "https://www.apple.com")!)
                         }){
                             Image("facebook-app-symbol").resizable().frame(width: 20, height: 20)
                         }
                         
                         Button(action:{
-                            print("Bookmark button pressed")
+                            openURL(URL(string: "https://www.apple.com")!)
                         }){
                             Image("twitter").resizable().frame(width: 20, height: 20)
                         }

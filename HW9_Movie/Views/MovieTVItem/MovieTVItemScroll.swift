@@ -9,17 +9,27 @@ import SwiftUI
 
 struct MovieTVItemScroll: View {
     var urlQuery: String;
+    var header: String
     @State private var jsonList = [MovieTVBrief]()
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false){
-            HStack(alignment: .top){
-                ForEach(jsonList){ item in
-                    MovieTVItem(item: item);
-                }
+        VStack (alignment: .leading){
+            if(!jsonList.isEmpty){
+           
+                Text("\(self.header) \(jsonList[0].mediaStr)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
+                
+        
             }
-        }.onAppear(perform: {
-            loadmovies()
+            ScrollView(.horizontal, showsIndicators: false){
+        
+                HStack(alignment: .top){
+                    ForEach(jsonList){ item in
+                        MovieTVItem(item: item);
+                    }
+                }
+            }.onAppear(perform: {
+                loadmovies()
         })
+        }.padding(.horizontal)
     }
     
     func loadmovies() {
@@ -48,6 +58,6 @@ struct MovieTVItemScroll: View {
 
 struct MovieTVItemScroll_Previews: PreviewProvider {
     static var previews: some View {
-        MovieTVItemScroll(urlQuery: "topmovie");
+        MovieTVItemScroll(urlQuery: "topmovie", header: "Recommended");
     }
 }
