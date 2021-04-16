@@ -19,7 +19,9 @@ struct MovieTVItem: View {
                 Text(item.name).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).frame(width: 120)
                 Text("(\(item.year))")
             }
-        }.buttonStyle(PlainButtonStyle())
+        }.buttonStyle(PlainButtonStyle()).onDisappear(perform: {
+            navigationBarHidden(true)
+        })
     }
 }
 

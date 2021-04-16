@@ -15,7 +15,7 @@ struct Watchlist: View {
                     Text("This is watch list")
                 }
             }
-            .navigationTitle("Watchlist")
+            //.navigationTitle("Watchlist")
         }
     }
 }

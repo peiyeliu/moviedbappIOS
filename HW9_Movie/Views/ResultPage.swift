@@ -15,7 +15,7 @@ struct ResultPage: View {
     
     
     var body: some View {
-        NavigationView {
+        VStack {
             ScrollView {
                 VStack{
                     Text("Here is the youtube")
@@ -55,27 +55,28 @@ struct ResultPage: View {
                     MovieTVItemScroll(urlQuery: "recommend/\(media)/\(id)")
                 }.frame(height: 300)
             }
-        }.navigationBarItems(
-            trailing:
-            HStack{
-                Button(action:{
-                    print("Bookmark button pressed")
-                }){
-                    Image(systemName: "bookmark").colorMultiply(.black)
-                }
-                
-                Button(action:{
-                    print("Bookmark button pressed")
-                }){
-                    Image("facebook-app-symbol").resizable().frame(width: 20, height: 20)
-                }
-                
-                Button(action:{
-                    print("Bookmark button pressed")
-                }){
-                    Image("twitter").resizable().frame(width: 20, height: 20)
-                }
-            })
+            }.navigationBarItems(
+                    
+                    trailing:
+                    HStack{
+                        Button(action:{
+                            print("Bookmark button pressed")
+                        }){
+                            Image(systemName: "bookmark").colorMultiply(.black)
+                        }
+                        
+                        Button(action:{
+                            print("Bookmark button pressed")
+                        }){
+                            Image("facebook-app-symbol").resizable().frame(width: 20, height: 20)
+                        }
+                        
+                        Button(action:{
+                            print("Bookmark button pressed")
+                        }){
+                            Image("twitter").resizable().frame(width: 20, height: 20)
+                        }
+                    })
     }
     
     

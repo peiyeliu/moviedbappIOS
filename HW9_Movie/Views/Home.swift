@@ -10,7 +10,7 @@ import SwiftUI
 struct Home: View {
     var body: some View {
         NavigationView {
-            List {
+            ScrollView {
                     VStack {
                         Text("Now Playing")
                             .font(.title)
@@ -36,16 +36,14 @@ struct Home: View {
                     }
                 
 
-            }
-            .padding(.horizontal)
-                .navigationBarTitle("USC Film")
-                .navigationBarItems(
-                    trailing:
-                    HStack{
-                        Button("TV shows"){}
-                    })
+            }.padding(.horizontal)
+            .navigationBarItems(
+                trailing:
+              HStack{
+                    Button("TV shows"){}
+              })    }            //.navigationBarTitle("USC Film")
+             
         }
-    }
 }
 
 struct Home_Previews: PreviewProvider {

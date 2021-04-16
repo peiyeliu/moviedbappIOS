@@ -19,7 +19,8 @@ struct Search: View {
 //                    SearchResultItem()
 //                    SearchResultItem()
                 }
-            }.navigationTitle("Search")
+            }
+            //.navigationTitle("Search")
         }
     
     }

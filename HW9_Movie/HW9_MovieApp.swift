@@ -11,8 +11,9 @@ import SwiftUI
 struct HW9_MovieApp: App {
     var body: some Scene {
         WindowGroup {
-            //HomeScreen()
-            Home()
+            HomeScreen()
+            //Home()
+            //Search()
             //MovieTVItemScroll(urlQuery: "topmovie")
             //ReviewScroll(media: "movie", id: 527774)
             //ResultPage(media: "movie", id: 527774)
