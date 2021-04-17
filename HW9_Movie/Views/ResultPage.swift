@@ -12,8 +12,10 @@ struct ResultPage: View {
     var media: String
     var id: Int
     
+    
     @State private var jsonData = MovieTVDetail(id: 0, year: "2022", media: "dummy", mediaStr: "dummy", name: "dummy", poster: "dummy", genre: "dummy", rate: "dummy", youtube: "dummy", overview: "dummy")
-    @Environment(\.openURL) var openURL
+    
+    
 
     
     var body: some View {
@@ -60,15 +62,11 @@ struct ResultPage: View {
                             Image(systemName: "bookmark").colorMultiply(.black)
                         }
                         
-                        Button(action:{
-                            openURL(URL(string: "https://www.apple.com")!)
-                        }){
+                        Link(destination: URL(string: "https://www.apple.com")!){
                             Image("facebook-app-symbol").resizable().frame(width: 20, height: 20)
                         }
                         
-                        Button(action:{
-                            openURL(URL(string: "https://www.apple.com")!)
-                        }){
+                        Link(destination: URL(string: "https://www.apple.com")!){
                             Image("twitter").resizable().frame(width: 20, height: 20)
                         }
                     })
