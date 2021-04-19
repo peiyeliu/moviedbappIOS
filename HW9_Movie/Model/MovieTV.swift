@@ -30,10 +30,13 @@ struct MovieTVBrief: Hashable, Codable, Identifiable{
     }
 }
 
-struct MoiveTVBriefWithRateList: Codable{
+class MovieTVBriefWithRateList: Codable, ObservableObject{
     var results: [MovieTVBriefWithRate]
     init(results: [MovieTVBriefWithRate]) {
         self.results = results
+    }
+    init(){
+        self.results = [MovieTVBriefWithRate]()
     }
 }
 

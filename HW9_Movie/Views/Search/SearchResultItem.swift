@@ -12,7 +12,7 @@ struct SearchResultItem: View {
     var search: MovieTVBriefWithRate
     var body: some View {
         NavigationLink(
-            destination: ResultPage(media: search.mediaStr, id: search.id) ){
+            destination: ResultPage(media: search.media, id: search.id) ){
             ZStack {
                 KFImage(URL(string: search.poster)!).resizable().frame(width: 340
                                                                        , height: 200, alignment: .center).cornerRadius(20)

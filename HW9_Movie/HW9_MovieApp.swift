@@ -11,7 +11,8 @@ import SwiftUI
 struct HW9_MovieApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeScreen()
+            //HomeScreen()
+            DemoSearchBar()
             //ImageCarouselViewWapper(urlQuery: "currentmovie")
             //Home()
             //Search()
