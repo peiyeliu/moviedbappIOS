@@ -8,21 +8,21 @@
 import SwiftUI
 
 struct Search: View {
-    
+    @State private var searchText : String = ""
     @ObservedObject var jsonList = MovieTVBriefWithRateList();
-    @State private var urlQuery = ""
-    //@ObservedObject var searchVM : SearchVM = SearchVM()
-    
+
     var body: some View {
         NavigationView {
-            ScrollView {
-           
+            VStack {
+                SearchBar(text: $searchText, placeholder: "Search cars", resultList: jsonList)
                 
-            }
-            //.navigationTitle("Search")
-            
+                Text("The search text is: \(searchText)")
+                
+                SearchResultList(jsonList: jsonList.results)
+                
+            }.navigationBarTitle(Text("Search"))
+                
         }
-        
     }
 
 }

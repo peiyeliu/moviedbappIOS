@@ -8,6 +8,10 @@ import SwiftUI
 import Foundation
 
 var baseURL = "http://localhost:3000/"
+var watchlist = UserDefaults.standard
+var listSize = 0
+var x = watchlist.dictionaryRepresentation().keys
+
 
 
 // demodata
@@ -68,5 +72,6 @@ func getURLStringWithMediaAndID(query: String, media: String, id: Int) -> String
 }
 
 func getSearchURL(keyword: String) ->String{
-    return baseURL + "search/" + keyword;
+    let urlStr = keyword.replacingOccurrences(of: " ", with: "%20")
+    return baseURL + "search/" + urlStr;
 }

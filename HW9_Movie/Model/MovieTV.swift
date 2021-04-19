@@ -78,8 +78,10 @@ struct MovieTVDetail: Hashable, Identifiable, Codable{
     var rate: String;
     var youtube: String;
     var overview: String;
+    var poster: String;
     
-    init(id: Int, year: String, media: String, mediaStr: String, name: String, poster: String, genre: String, rate: String, youtube: String, overview: String) {
+    init(id: Int, year: String, media: String, mediaStr: String, name: String,
+         poster: String, genre: String, rate: String, youtube: String, overview: String) {
         self.id = id;
         self.year = year;
         self.media = media;
@@ -87,6 +89,7 @@ struct MovieTVDetail: Hashable, Identifiable, Codable{
         self.name = name;
         self.genre = genre;
         self.rate = rate;
+        self.poster = poster;
         self.youtube = youtube;
         self.overview = overview;
     }
@@ -130,6 +133,17 @@ struct Review: Hashable, Identifiable, Codable{
         self.time = time;
         self.rate = rate;
         self.content = content;
+    }
+}
+
+struct WatchListItem{
+    var id: Int;
+    var media: String;
+    var poster: String;
+    init(id: Int, media: String, poster: String){
+        self.id = id;
+        self.media = media;
+        self.poster = poster;
     }
 }
 

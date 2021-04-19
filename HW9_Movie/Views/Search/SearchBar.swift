@@ -36,22 +36,19 @@ struct SearchBar: UIViewRepresentable {
         searchBar.placeholder = placeholder
         searchBar.searchBarStyle = .minimal
         searchBar.autocapitalizationType = .none
-        if(text != ""){
-            loadmovies()
-        }
-        else{
-            resultList.results = [MovieTVBriefWithRate]();
-        }
+//        if(text.count > 2){
+//            loadmovies()
+//        }
         return searchBar
     }
 
     func updateUIView(_ uiView: UISearchBar, context: UIViewRepresentableContext<SearchBar>) {
         uiView.text = text
-        if(text != ""){
+        if(text.count > 2){
             loadmovies()
         }
         else{
-            resultList.results = [MovieTVBriefWithRate]();
+            return;
         }
     }
     

@@ -57,16 +57,20 @@ struct ResultPage: View {
                     trailing:
                     HStack{
                         Button(action:{
-                            print("Bookmark button pressed")
+                            //print("Bookmark button pressed")
+                            let currItem = WatchListItem(id: id, media: media, poster: jsonData.poster)
+                            let key = String(id) + media
+                            watchlist.setValue(currItem, forKey: key)
+                            listSize+=1
                         }){
                             Image(systemName: "bookmark").colorMultiply(.black)
                         }
                         
-                        Link(destination: URL(string: "https://www.apple.com")!){
+                        Link(destination: URL(string: "https://www.facebook.com/sharer/sharer.php?u=https://youtu.be/\(jsonData.youtube)")!){
                             Image("facebook-app-symbol").resizable().frame(width: 20, height: 20)
                         }
                         
-                        Link(destination: URL(string: "https://www.apple.com")!){
+                        Link(destination: URL(string: "https://twitter.com/intent/tweet?text=Check+out+this+link%3A+https%3A%2F%2Fwww.themoviedb.org%2F\(media)%2F\(id)+%23CSCI571USCFilms")!){
                             Image("twitter").resizable().frame(width: 20, height: 20)
                         }
                     })
