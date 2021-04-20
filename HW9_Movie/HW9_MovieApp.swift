@@ -11,11 +11,11 @@ import SwiftUI
 struct HW9_MovieApp: App {
     var body: some Scene {
         WindowGroup {
-            //HomeScreen()
+            HomeScreen()
             //DemoSearchBar()
             //ImageCarouselViewWapper(urlQuery: "currentmovie")
             //Home()
-            Search()
+            //Search()
             //MovieTVItemScroll(urlQuery: "topmovie")
             //ReviewScroll(media: "movie", id: 527774)
             //ResultPage(media: "movie", id: 527774)

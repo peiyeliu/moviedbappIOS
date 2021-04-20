@@ -11,7 +11,7 @@ struct HomeScreen: View {
     var body: some View {
         TabView{
             Search().tabItem { Label("Search", systemImage: "magnifyingglass") }
-            Home(urlQuery: "currentmovie").tabItem { Label("Home", systemImage: "house")  }
+            Home().tabItem { Label("Home", systemImage: "house")  }
             Watchlist().tabItem { Label("Watchlist", systemImage: "suit.heart")  }
         }
     }

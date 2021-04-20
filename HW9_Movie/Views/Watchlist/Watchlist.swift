@@ -19,9 +19,6 @@ struct Watchlist: View {
                             .padding(.top, 300.0)
                     }
                     else{
-                        VStack{
-                            ForEach(<#T##data: Range<Int>##Range<Int>#>, content: <#T##(Int) -> _#>)
-                        }
                     }
                 }
             }

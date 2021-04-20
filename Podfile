@@ -18,5 +18,7 @@ target 'HW9_Movie' do
 
   pod 'Kingfisher', '~> 6.2'
   pod "youtube-ios-player-helper"
+  pod 'ReadMoreTextView'
+  pod 'ActivityIndicatorView'
 
 end

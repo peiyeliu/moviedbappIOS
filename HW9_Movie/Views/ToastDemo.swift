@@ -8,59 +8,53 @@
 import SwiftUI
 
 struct ToastDemo: View {
-    @State private var lightsOn: Bool = false
     @State private var showToast: Bool = false
 
     var body: some View {
         VStack {
-            Button(action: {
-                if (!self.showToast) {
-                    self.lightsOn.toggle()
-
-                    withAnimation {
-                        self.showToast = true
-                    }
-                }
-            }){
-                Text("switch")
-            }
-            .padding(.top)
             Spacer()
+            VStack{
+                Image("rainbowlake")
+                Text("Rainbowlake")
+            }
+            .frame(height: 300.0)
             VStack {
                 Text("Long Tap me")
             }.onLongPressGesture {
                 if (!self.showToast) {
-                    self.lightsOn.toggle()
-
                     withAnimation {
                         self.showToast = true
                     }
                 }
-            }
+            }.toast(isPresented: self.$showToast) {
+                VStack(alignment: .leading){
+                    HStack {
+                        Text("Add in WatchList")
+                        Spacer()
+                        Image(systemName: "bookmark").colorMultiply(.black)
+                    }
 
-            Image(systemName: self.lightsOn ? "lightbulb" : "lightbulb.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding(.all)
-                .toast(isPresented: self.$showToast) {
-                    VStack(alignment: .leading){
-                        HStack {
-                            Text("Add in WatchList")
-                            Spacer()
-                            Image(systemName: "bookmark").colorMultiply(.black)
-                        }
+                    Link(destination: /*@START_MENU_TOKEN@*/URL(string: "https://www.apple.com")!/*@END_MENU_TOKEN@*/) {
                         HStack {
                             Text("Share on Facebook")
                             Spacer()
                             Image("facebook-app-symbol").resizable().frame(width: 20, height: 20)
                         }
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    
+                    Link(destination: /*@START_MENU_TOKEN@*/URL(string: "https://www.apple.com")!/*@END_MENU_TOKEN@*/)  {
                         HStack {
                             Text("Share on Twitter")
                             Spacer()
                             Image("twitter").resizable().frame(width: 20, height: 20)
                         }
-                    }
-                } //toast
+                    }.buttonStyle(PlainButtonStyle())
+                }
+            } //toast
+
+        
         } //VStack
     } //body
 }
@@ -97,18 +91,19 @@ struct Toast<Presenting, Content>: View where Presenting: View, Content: View {
         }
 
         return GeometryReader { geometry in
-            ZStack(alignment: .bottom) {
+            ZStack(alignment: .top) {
                 self.presenter()
 
                 ZStack {
                     Rectangle()
                         .fill(Color.gray).cornerRadius(20)
                     self.content().padding(.all)
-                }//ZStack (inner)
+                }.position(x: 180, y: 100)
+                //ZStack (inner)
                 .frame(width: geometry.size.width / 1.25, height: geometry.size.height / 10)
                 .opacity(self.isPresented ? 1 : 0)
+                
             }
-            .padding(.bottom)
         }
     }
 }

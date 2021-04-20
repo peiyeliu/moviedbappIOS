@@ -11,6 +11,8 @@ import Kingfisher
 
 struct MovieTVItem: View {
     var item: MovieTVBrief;
+    @State private var showToast: Bool = false
+    
     var body: some View {
         NavigationLink (
             destination: ResultPage(media: item.media, id: item.id)){
@@ -28,3 +30,6 @@ struct MovieTVItem_Previews: PreviewProvider {
         MovieTVItem(item: currMoviesDemo[0]);
     }
 }
+
+
+

@@ -34,7 +34,7 @@ struct ResultPage: View {
                             .foregroundColor(.red)
                         Text("\(jsonData.rate)/5.0").font(.title3)
                     }.padding(.top, 5.0)
-                    Text(jsonData.overview).padding(.top, 5.0)
+                    Text(jsonData.overview).padding(.top, 5.0).lineLimit(3)
                 }.onAppear(perform: {
                     loaddetail()
                 })

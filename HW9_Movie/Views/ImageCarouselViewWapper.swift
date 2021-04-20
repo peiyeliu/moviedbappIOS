@@ -21,12 +21,12 @@ struct ImageCarouselViewWapper: View {
                         
                         NavigationLink(
                             destination: ResultPage(media: item.media, id: item.id)) {
-                            KFImage(URL(string: item.poster)!).resizable().frame(width: 300, height: geometry.size.height)
+                            KFImage(URL(string: item.poster)!).resizable().frame(width: 280, height: geometry.size.height)
                         }
                     }
                 }
             }
-        }.frame(width: 360, height: 380, alignment:.center ).onAppear(perform: {
+        }.frame(alignment:.center).onAppear(perform: {
             loadmovies()
         })
     }
