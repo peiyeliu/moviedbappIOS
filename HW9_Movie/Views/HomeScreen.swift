@@ -13,6 +13,8 @@ struct HomeScreen: View {
             Search().tabItem { Label("Search", systemImage: "magnifyingglass") }
             Home().tabItem { Label("Home", systemImage: "house")  }
             Watchlist().tabItem { Label("Watchlist", systemImage: "suit.heart")  }
+        }.onAppear{
+            resetDefaults()
         }
     }
 }

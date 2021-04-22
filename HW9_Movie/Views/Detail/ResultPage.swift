@@ -63,14 +63,12 @@ struct ResultPage: View {
                             if(!isKeyPresentInUserDefaults(key: key)){
                                 UserDefaults.standard.set(jsonData.poster, forKey: key)
                                 //watchlist.set(jsonData.poster, forKey: key)
-                                listSize += 1
                                 debugPrint("item added !!!!!!!\(key)")
                                 bookmarkLabelName = "bookmark.fill"
                             }
                             else{
                                 UserDefaults.standard.removeObject(forKey: key)
                                 //watchlist.removeObject(forKey: key)
-                                listSize -= 1
                                 debugPrint("item removed !!!!!!!")
                                 bookmarkLabelName = "bookmark"
                             }

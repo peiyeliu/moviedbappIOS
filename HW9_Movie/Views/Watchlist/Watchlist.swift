@@ -10,6 +10,7 @@ import SwiftUI
 struct Watchlist: View {
     
     @State var ItemList = [WatchListItem]()
+    let colomns = Array(repeating: GridItem(.flexible(), spacing: 5), count: 3)
     
     var body: some View {
         NavigationView {
@@ -22,10 +23,12 @@ struct Watchlist: View {
                             .padding(.top, 300.0)
                     }
                     else{
-                        ForEach(ItemList){
-                           item in
-                           WatchItem(item: item)
-                        }
+                        LazyVGrid(columns: colomns, spacing: 5, content: {
+                            ForEach(ItemList, id: \.self){
+                                item in
+                                WatchItem(item: item)
+                            }
+                        })
                         
                     }
                 }
@@ -37,6 +40,7 @@ struct Watchlist: View {
     }
     
     func getUserDefaultData(){
+        ItemList = [WatchListItem]()
         for (key, value) in UserDefaults.standard.dictionaryRepresentation(){
             var media: String = ""
             var idStr: String = ""

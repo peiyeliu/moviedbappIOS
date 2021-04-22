@@ -9,6 +9,14 @@ import Foundation
 
 var baseURL = "http://localhost:3000/"
 
+func resetDefaults() {
+    let defaults = UserDefaults.standard
+    let dictionary = defaults.dictionaryRepresentation()
+    dictionary.keys.forEach { key in
+        defaults.removeObject(forKey: key)
+    }
+}
+
 
 
 // demodata
