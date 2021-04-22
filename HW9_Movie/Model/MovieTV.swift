@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct MoiveTVBriefList: Codable{
+struct MovieTVBriefList: Codable{
     var results: [MovieTVBrief]
     init(results: [MovieTVBrief]) {
         self.results = results
@@ -136,7 +136,7 @@ struct Review: Hashable, Identifiable, Codable{
     }
 }
 
-struct WatchListItem{
+struct WatchListItem: Identifiable{
     var id: Int;
     var media: String;
     var poster: String;

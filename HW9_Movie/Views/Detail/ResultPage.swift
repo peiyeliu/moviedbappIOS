@@ -7,16 +7,18 @@
 
 import SwiftUI
 import youtube_ios_player_helper
+import Toast_Swift
 
 struct ResultPage: View {
     var media: String
     var id: Int
     
+    @State private var showToast: Bool = false
+    @State private var bookmarkLabelName = "bookmark"
     
     @State private var jsonData = MovieTVDetail(id: 0, year: "2022", media: "dummy", mediaStr: "dummy", name: "dummy", poster: "dummy", genre: "dummy", rate: "dummy", youtube: "dummy", overview: "dummy")
     
     
-
     
     var body: some View {
         VStack {
@@ -27,18 +29,17 @@ struct ResultPage: View {
                     
             
                 VStack (alignment: .leading){
-                    Text(jsonData.name).font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                    Text("\(jsonData.year) | \(jsonData.genre)").font(.title3).padding(.top, 5.0)
+                    Text(jsonData.name).font(.title).fontWeight(.bold).padding(.horizontal)
+                    Text("\(jsonData.year) | \(jsonData.genre)").font(.title3).padding(.top, 5.0).padding(.horizontal)
                     HStack{
                         Image(systemName: "star.fill")
                             .foregroundColor(.red)
                         Text("\(jsonData.rate)/5.0").font(.title3)
-                    }.padding(.top, 5.0)
-                    Text(jsonData.overview).padding(.top, 5.0).lineLimit(3)
-                }.onAppear(perform: {
-                    loaddetail()
-                })
-                
+                    }.padding(.top, 5.0).padding(.horizontal)
+            
+                    Description(text: jsonData.overview).padding(.top, 5.0)
+            
+                }
                 Divider()
                 VStack (alignment: .leading){
                     PeopleScroll(media: media, id: id)
@@ -53,17 +54,26 @@ struct ResultPage: View {
                 }.frame(height: 300)
             }
             }.navigationBarItems(
-                    
                     trailing:
                     HStack{
-                        Button(action:{
-                            //print("Bookmark button pressed")
-                            let currItem = WatchListItem(id: id, media: media, poster: jsonData.poster)
-                            let key = String(id) + media
-                            watchlist.setValue(currItem, forKey: key)
-                            listSize+=1
-                        }){
-                            Image(systemName: "bookmark").colorMultiply(.black)
+                        VStack{
+                            Image(systemName: bookmarkLabelName).colorMultiply(.black)
+                        }.onTapGesture {
+                            let key = jsonData.media + "/" + String(id);
+                            if(!isKeyPresentInUserDefaults(key: key)){
+                                UserDefaults.standard.set(jsonData.poster, forKey: key)
+                                //watchlist.set(jsonData.poster, forKey: key)
+                                listSize += 1
+                                debugPrint("item added !!!!!!!\(key)")
+                                bookmarkLabelName = "bookmark.fill"
+                            }
+                            else{
+                                UserDefaults.standard.removeObject(forKey: key)
+                                //watchlist.removeObject(forKey: key)
+                                listSize -= 1
+                                debugPrint("item removed !!!!!!!")
+                                bookmarkLabelName = "bookmark"
+                            }
                         }
                         
                         Link(destination: URL(string: "https://www.facebook.com/sharer/sharer.php?u=https://youtu.be/\(jsonData.youtube)")!){
@@ -72,6 +82,12 @@ struct ResultPage: View {
                         
                         Link(destination: URL(string: "https://twitter.com/intent/tweet?text=Check+out+this+link%3A+https%3A%2F%2Fwww.themoviedb.org%2F\(media)%2F\(id)+%23CSCI571USCFilms")!){
                             Image("twitter").resizable().frame(width: 20, height: 20)
+                        }
+                    }).onAppear(perform: {
+                        loaddetail()
+                        let key = jsonData.media + "/" + String(id);
+                        if(isKeyPresentInUserDefaults(key: key)){
+                            bookmarkLabelName = "bookmark.fill"
                         }
                     })
     }

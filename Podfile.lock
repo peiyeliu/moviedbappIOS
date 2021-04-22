@@ -2,12 +2,14 @@ PODS:
   - ActivityIndicatorView (0.0.6)
   - Kingfisher (6.2.1)
   - ReadMoreTextView (3.0.1)
+  - Toast-Swift (5.0.1)
   - youtube-ios-player-helper (1.0.3)
 
 DEPENDENCIES:
   - ActivityIndicatorView
   - Kingfisher (~> 6.2)
   - ReadMoreTextView
+  - Toast-Swift (~> 5.0.1)
   - youtube-ios-player-helper
 
 SPEC REPOS:
@@ -15,14 +17,16 @@ SPEC REPOS:
     - ActivityIndicatorView
     - Kingfisher
     - ReadMoreTextView
+    - Toast-Swift
     - youtube-ios-player-helper
 
 SPEC CHECKSUMS:
   ActivityIndicatorView: f7c08841e302c86d16c29b7c9554fce2a2bd9183
   Kingfisher: e71c6fac2aebb1262888cabc2cb13d313362a48f
   ReadMoreTextView: 19147adf93abce6d7271e14031a00303fe28720d
+  Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
   youtube-ios-player-helper: 0185c57db23c80d63d6ca11251d110abb8a4ca61
 
-PODFILE CHECKSUM: 3618dfa819707544a2a84bfd5411e5b2954c9b22
+PODFILE CHECKSUM: a3e032f00fc800bd5f4fd12a7fdd2439e15722e1
 
 COCOAPODS: 1.10.1

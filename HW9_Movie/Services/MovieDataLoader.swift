@@ -8,9 +8,6 @@ import SwiftUI
 import Foundation
 
 var baseURL = "http://localhost:3000/"
-var watchlist = UserDefaults.standard
-var listSize = 0
-var x = watchlist.dictionaryRepresentation().keys
 
 
 
@@ -20,24 +17,6 @@ var castsDemo: [Cast] = demojsonparser("castdata.json");
 var reviewsDemo: [Review] = demojsonparser("reviewdata.json");
 var searchDemo: [MovieTVBriefWithRate] = demojsonparser("searchdata.json");
 
-var topMoviesList: MoiveTVBriefList = MoiveTVBriefList(results: []);
-//home page data
-var currMovies: [MovieTVBrief] = []
-var topMovies: [MovieTVBrief] = []
-var popMovies: [MovieTVBrief] = []
-var currTVs: [MovieTVBrief] = []
-var topTVs: [MovieTVBrief] = []
-var popTVs: [MovieTVBrief] = []
-
-//search data
-var searchResultArray:[MovieTVBriefWithRate] = []
-
-//detail data
-
-var casts: [Cast] = []
-var reviews: [Review] = []
-
-
 //parse the demo local json data
 func demojsonparser<T: Decodable>(_ filename: String) ->T{
     let data: Data
@@ -46,7 +25,6 @@ func demojsonparser<T: Decodable>(_ filename: String) ->T{
     else{
         fatalError("Couldn't find \(filename) in main bundle")
     }
-    
     do{
         data = try Data(contentsOf: file)
     }
@@ -74,4 +52,9 @@ func getURLStringWithMediaAndID(query: String, media: String, id: Int) -> String
 func getSearchURL(keyword: String) ->String{
     let urlStr = keyword.replacingOccurrences(of: " ", with: "%20")
     return baseURL + "search/" + urlStr;
+}
+
+
+func isKeyPresentInUserDefaults(key: String) -> Bool {
+    return UserDefaults.standard.object(forKey: key) != nil
 }

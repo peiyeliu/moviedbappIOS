@@ -39,7 +39,7 @@ struct ImageCarouselViewWapper: View {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
-                if let decodedResponse = try? JSONDecoder().decode(MoiveTVBriefList.self, from: data) {
+                if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefList.self, from: data) {
                     DispatchQueue.main.async {
                         self.jsonList = decodedResponse.results
                     }

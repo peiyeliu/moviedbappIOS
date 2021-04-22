@@ -17,7 +17,7 @@ struct Overview: UIViewRepresentable {
     let textView = ReadMoreTextView()
 
     func makeUIView(context: Context) -> ReadMoreTextView{
-        //textView.text = overviewText;
+        textView.text = overviewText;
         textView.shouldTrim = true
         textView.maximumNumberOfLines = 3
         textView.attributedReadMoreText = NSAttributedString(string: "... Read more")

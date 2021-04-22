@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct WatchlistItem: View {
+struct WatchItem: View {
     var item: WatchListItem
     var body: some View {
         NavigationLink (
@@ -20,9 +20,9 @@ struct WatchlistItem: View {
     }
 }
 
-struct WatchlistItem_Previews: PreviewProvider {
+struct WatchItem_Previews: PreviewProvider {
     static var previews: some View {
         let demoItem = WatchListItem(id: 527774, media: "movie", poster: "https://image.tmdb.org/t/p/w500/lPsD10PP4rgUGiGR4CCXA6iY0QQ.jpg")
-        WatchlistItem(item: demoItem)
+        WatchItem(item: demoItem)
     }
 }

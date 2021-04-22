@@ -18,8 +18,9 @@ struct MovieTVItem: View {
             destination: ResultPage(media: item.media, id: item.id)){
             VStack{
                 KFImage(URL(string: item.poster)!).resizable().frame(width: 120, height: 180, alignment: .center).cornerRadius(20)
-                Text(item.name).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).frame(width: 120)
+                Text(item.name).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/).multilineTextAlignment(.center).frame(width: 120)
                 Text("(\(item.year))")
+                    .foregroundColor(Color.gray)
             }
         }.buttonStyle(PlainButtonStyle())
     }

@@ -14,13 +14,15 @@ struct Home: View {
     @State private var toggleLabel = "movie"
     var body: some View {
             NavigationView {
-                VStack{
+                ScrollView{
                     if isMovie{
                         HomeMovie(urlQuery: "currentmovie")
                     }
                     else{
                         HomeTV(urlQuery: "currenttv")
                     }
+                    Text("Powered by TMDB").foregroundColor(.gray)
+                    Text("Developed by Peiye Liu").foregroundColor(.gray)
                 }.navigationBarItems(trailing: Button(action: {
                     if isMovie{
                         isMovie = false;
@@ -33,7 +35,7 @@ struct Home: View {
                     }
                 }, label: {
                     Text("\(toggleLabel)")
-                })).navigationBarTitle("USC Film")
+                })).navigationTitle("USC Film")
             }
     }
 }

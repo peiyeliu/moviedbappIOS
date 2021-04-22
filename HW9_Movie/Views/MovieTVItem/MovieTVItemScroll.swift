@@ -14,10 +14,7 @@ struct MovieTVItemScroll: View {
     var body: some View {
         VStack (alignment: .leading){
             if(!jsonList.isEmpty){
-           
                 Text("\(self.header) \(jsonList[0].mediaStr)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                
-        
             }
             ScrollView(.horizontal, showsIndicators: false){
         
@@ -41,7 +38,7 @@ struct MovieTVItemScroll: View {
         
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
-                if let decodedResponse = try? JSONDecoder().decode(MoiveTVBriefList.self, from: data) {
+                if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefList.self, from: data) {
                     DispatchQueue.main.async {
                         self.jsonList = decodedResponse.results
                     }
