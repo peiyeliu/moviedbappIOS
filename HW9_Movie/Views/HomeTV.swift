@@ -30,11 +30,11 @@ struct HomeTV: View {
                     
                         VStack{
                             MovieTVItemScroll(urlQuery: "toptv", header: "Top Rated")
-                        }.frame(height: 300)
+                        }
 
                         VStack{
                             MovieTVItemScroll(urlQuery: "poptv", header: "Popular")
-                        }.frame(height: 300)
+                        }
                         
                         
                     

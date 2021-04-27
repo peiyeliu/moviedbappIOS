@@ -12,6 +12,9 @@ struct Watchlist: View {
     //@State var ItemList = [WatchListItem]()
     @State private var showToast: Bool = false
     @StateObject var ListData = WatchListModel()
+    @State var idTaped : Int = 0
+    @State var mediaTaped: String = ""
+
     let colomns = Array(repeating: GridItem(.flexible(), spacing: 5), count: 3)
     
     var body: some View {
@@ -28,27 +31,33 @@ struct Watchlist: View {
                         LazyVGrid(columns: colomns, spacing: 5, content: {
                             ForEach(self.ListData.items, id: \.self){
                                 item in
-                                WatchItem(item: item).onDrop(of: [.text], delegate: DropViewDelegate(item: item, itemData: ListData)).onDrag({
-                                    ListData.currentPage = item
-                                    return NSItemProvider(object: item as! NSItemProviderWriting)
-                                })
+                                WatchItem(item: item)
+                                }
                             }
-                        })
+                        ).itemtoast(isPresented: self.$showToast) {
+                            VStack(alignment: .leading){
+                                HStack {
+                                    Text("Remove from WatchList")
+                                    Spacer()
+                                    Image(systemName: "bookmark").colorMultiply(.black)
+                                }.onTapGesture {
+                                    let key = mediaTaped + "/" + String(idTaped);
+                                    if(!isKeyPresentInUserDefaults(key: key)){
+                                    }
+                                    else{
+                                        UserDefaults.standard.removeObject(forKey: key)
+                                    }
+                                }
+                                }
+                            }
                     }
                 }
             }
             .navigationTitle("Watchlist").onAppear(perform: {
                 getUserDefaultData()
             })
-        }.toast(isPresented: self.$showToast) {
-            VStack(alignment: .leading){
-                HStack {
-                    Text("Remove from WatchList")
-                    Spacer()
-                    Image(systemName: "bookmark").colorMultiply(.black)
-                }
-            }
-        } //toast
+    
+        }
     }
     
     func getUserDefaultData(){
