@@ -136,7 +136,7 @@ struct Review: Hashable, Identifiable, Codable{
     }
 }
 
-struct WatchListItem: Identifiable, Hashable{
+class WatchListItem: NSObject, Identifiable{
     var id: Int;
     var media: String;
     var poster: String;

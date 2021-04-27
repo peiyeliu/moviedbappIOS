@@ -7,14 +7,14 @@
 
 import SwiftUI
 import youtube_ios_player_helper
-import Toast_Swift
 
 struct ResultPage: View {
     var media: String
     var id: Int
     
     @State private var showToast: Bool = false
-    @State private var bookmarkLabelName = "bookmark"
+    @State private var itemAdded: Bool = false
+    //@State private var bookmarkLabelName = "bookmark"
     
     @State private var jsonData = MovieTVDetail(id: 0, year: "2022", media: "dummy", mediaStr: "dummy", name: "dummy", poster: "dummy", genre: "dummy", rate: "dummy", youtube: "dummy", overview: "dummy")
     
@@ -25,7 +25,7 @@ struct ResultPage: View {
             ScrollView {
                 VStack{
                     YoutubePicker(text: jsonData.youtube)
-                }.frame(height: 260).padding(.horizontal)
+                }.frame(height: 220).padding(.horizontal)
                     
             
                 VStack (alignment: .leading){
@@ -51,26 +51,50 @@ struct ResultPage: View {
                 Divider()
                 VStack (alignment: .leading){
                     MovieTVItemScroll(urlQuery: "recommend/\(media)/\(id)", header: "Recommended")
-                }.frame(height: 300)
-            }
+                }
+            }.toast(isPresented: self.$showToast) {
+                VStack(alignment: .leading){
+                    HStack {
+                        if itemAdded {
+                            Text("\(jsonData.name) was added in WatchList")
+                        }
+                        else{
+                            Text("\(jsonData.name) was removed from WatchList")
+                        }
+                    }
+                }
+            } //toast
             }.navigationBarItems(
                     trailing:
                     HStack{
                         VStack{
-                            Image(systemName: bookmarkLabelName).colorMultiply(.black)
+                            if itemAdded {
+                                Image(systemName: "bookmark.fill").colorMultiply(.black)
+                            }
+                            else {
+                                Image(systemName: "bookmark").colorMultiply(.black)
+                            }
+                            //Image(systemName: bookmarkLabelName).colorMultiply(.black)
                         }.onTapGesture {
                             let key = jsonData.media + "/" + String(id);
                             if(!isKeyPresentInUserDefaults(key: key)){
                                 UserDefaults.standard.set(jsonData.poster, forKey: key)
                                 //watchlist.set(jsonData.poster, forKey: key)
                                 debugPrint("item added !!!!!!!\(key)")
-                                bookmarkLabelName = "bookmark.fill"
+                                itemAdded = true;
+                                //bookmarkLabelName = "bookmark.fill"
                             }
                             else{
                                 UserDefaults.standard.removeObject(forKey: key)
                                 //watchlist.removeObject(forKey: key)
                                 debugPrint("item removed !!!!!!!")
-                                bookmarkLabelName = "bookmark"
+                                itemAdded = false
+                                //bookmarkLabelName = "bookmark"
+                            }
+                            if (!self.showToast) {
+                                withAnimation {
+                                    self.showToast = true
+                                }
                             }
                         }
                         
@@ -85,7 +109,7 @@ struct ResultPage: View {
                         loaddetail()
                         let key = jsonData.media + "/" + String(id);
                         if(isKeyPresentInUserDefaults(key: key)){
-                            bookmarkLabelName = "bookmark.fill"
+                            itemAdded = true
                         }
                     })
     }

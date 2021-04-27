@@ -15,7 +15,7 @@ struct ReviewItem: View {
             VStack {
                 VStack(alignment: .leading){
                     Text("A review by \(review.author)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    Text("Written by \(review.author) on \(review.time)").font(.title3)
+                    Text("Written by \(review.author) on \(review.time)").font(.title3).foregroundColor(Color.gray)
                     HStack {
                         Image(systemName: "star.fill")
                             .foregroundColor(.red)
@@ -25,8 +25,13 @@ struct ReviewItem: View {
                 }
                 .padding(.all)
                 
-            }.cornerRadius(20)
-        }.buttonStyle(PlainButtonStyle())   }
+            }.overlay(
+                RoundedRectangle(cornerRadius: 15)
+                    .stroke(lineWidth: 2).foregroundColor(.gray)
+            )
+        }.buttonStyle(PlainButtonStyle())
+        
+    }
 }
 
 struct ReviewItem_Previews: PreviewProvider {

@@ -39,6 +39,7 @@
 		206993C1261F9CC3003E27D2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 206993C0261F9CC3003E27D2 /* Preview Assets.xcassets */; };
 		207790D72623550D006F6F27 /* MovieDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207790D62623550D006F6F27 /* MovieDataLoader.swift */; };
 		207790DC26235900006F6F27 /* MovieTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207790DB26235900006F6F27 /* MovieTV.swift */; };
+		2082A6A126389FAC008621A4 /* Demoview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2082A6A026389FAC008621A4 /* Demoview.swift */; };
 		20BBD83126253FBA00A59754 /* ReviewScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BBD83026253FBA00A59754 /* ReviewScroll.swift */; };
 		20D0E8C2262A521D000C2D41 /* ToastDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D0E8C1262A521D000C2D41 /* ToastDemo.swift */; };
 		20EB40F0262E9CBC0066AB94 /* HomeTV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EB40EF262E9CBC0066AB94 /* HomeTV.swift */; };
@@ -47,7 +48,6 @@
 		20F4E3142624FA3A0097C167 /* URLTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F4E3132624FA3A0097C167 /* URLTest.swift */; };
 		20FA4967262F583000E271B8 /* DragDropDemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FA4966262F583000E271B8 /* DragDropDemo.swift */; };
 		20FA496C262F609100E271B8 /* WatchListGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FA496B262F609100E271B8 /* WatchListGrid.swift */; };
-		20FA497C262F70E500E271B8 /* ToastWapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FA497B262F70E500E271B8 /* ToastWapper.swift */; };
 		672A61746EA65B5D1676D758 /* Pods_HW9_Movie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DED3316CF57A0709876B834D /* Pods_HW9_Movie.framework */; };
 		A0CFB07406D393070339C184 /* Pods_HW9_MovieTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0EB5C06622488D643BF77F2 /* Pods_HW9_MovieTests.framework */; };
 		B2ED72F819DAC62C4776202A /* Pods_HW9_Movie_HW9_MovieUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904539353101694AB21FFC3 /* Pods_HW9_Movie_HW9_MovieUITests.framework */; };
@@ -107,6 +107,7 @@
 		206993D2261F9CC3003E27D2 /* HW9_MovieUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HW9_MovieUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		207790D62623550D006F6F27 /* MovieDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDataLoader.swift; sourceTree = "<group>"; };
 		207790DB26235900006F6F27 /* MovieTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTV.swift; sourceTree = "<group>"; };
+		2082A6A026389FAC008621A4 /* Demoview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Demoview.swift; sourceTree = "<group>"; };
 		20BBD83026253FBA00A59754 /* ReviewScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScroll.swift; sourceTree = "<group>"; };
 		20D0E8C1262A521D000C2D41 /* ToastDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastDemo.swift; sourceTree = "<group>"; };
 		20EB40EF262E9CBC0066AB94 /* HomeTV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTV.swift; sourceTree = "<group>"; };
@@ -115,7 +116,6 @@
 		20F4E3132624FA3A0097C167 /* URLTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLTest.swift; sourceTree = "<group>"; };
 		20FA4966262F583000E271B8 /* DragDropDemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropDemo.swift; sourceTree = "<group>"; };
 		20FA496B262F609100E271B8 /* WatchListGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchListGrid.swift; sourceTree = "<group>"; };
-		20FA497B262F70E500E271B8 /* ToastWapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWapper.swift; sourceTree = "<group>"; };
 		50D6D02FE7D133BDC7989F58 /* Pods-HW9_MovieTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HW9_MovieTests.debug.xcconfig"; path = "Target Support Files/Pods-HW9_MovieTests/Pods-HW9_MovieTests.debug.xcconfig"; sourceTree = "<group>"; };
 		660FC8F6AC32CC64BC083947 /* Pods-HW9_Movie.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HW9_Movie.release.xcconfig"; path = "Target Support Files/Pods-HW9_Movie/Pods-HW9_Movie.release.xcconfig"; sourceTree = "<group>"; };
 		AA619F8358185CA5DB8FE341 /* Pods-HW9_MovieTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HW9_MovieTests.release.xcconfig"; path = "Target Support Files/Pods-HW9_MovieTests/Pods-HW9_MovieTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -242,6 +242,7 @@
 		20699403261FABCA003E27D2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2082A69F26389F9D008621A4 /* DemoTest */,
 				20BBD839262541C700A59754 /* Search */,
 				20BBD83D262541D800A59754 /* URLtest */,
 				200121472621582800F35D43 /* Home.swift */,
@@ -257,7 +258,6 @@
 				20236328262A10680009C753 /* ImageCarouselView.swift */,
 				2023632D262A1AB70009C753 /* ImageCarouselViewWapper.swift */,
 				20D0E8C1262A521D000C2D41 /* ToastDemo.swift */,
-				20FA497B262F70E500E271B8 /* ToastWapper.swift */,
 				205B0A4B262E7C860030C40F /* Overview.swift */,
 				205B0A55262E88330030C40F /* LoadView */,
 			);
@@ -278,6 +278,14 @@
 				207790D62623550D006F6F27 /* MovieDataLoader.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		2082A69F26389F9D008621A4 /* DemoTest */ = {
+			isa = PBXGroup;
+			children = (
+				2082A6A026389FAC008621A4 /* Demoview.swift */,
+			);
+			path = DemoTest;
 			sourceTree = "<group>";
 		};
 		20BBD82F26253FA400A59754 /* Review */ = {
@@ -600,7 +608,6 @@
 				20BBD83126253FBA00A59754 /* ReviewScroll.swift in Sources */,
 				2042132E2623F8A40046EF76 /* PeopleScroll.swift in Sources */,
 				20FA4967262F583000E271B8 /* DragDropDemo.swift in Sources */,
-				20FA497C262F70E500E271B8 /* ToastWapper.swift in Sources */,
 				2059CAE42622A96D003CF33B /* MovieTVItemScroll.swift in Sources */,
 				20EB40F0262E9CBC0066AB94 /* HomeTV.swift in Sources */,
 				207790D72623550D006F6F27 /* MovieDataLoader.swift in Sources */,
@@ -610,6 +617,7 @@
 				2059CADF2622A265003CF33B /* SearchResultItem.swift in Sources */,
 				2037EA72262CDF4900365EC4 /* SearchResultList.swift in Sources */,
 				20236333262A2E860009C753 /* SearchBar.swift in Sources */,
+				2082A6A126389FAC008621A4 /* Demoview.swift in Sources */,
 				20FA496C262F609100E271B8 /* WatchListGrid.swift in Sources */,
 				2056EEFF262FBF1400105604 /* Description.swift in Sources */,
 				20F4E30F2624EF8D0097C167 /* MovieURLTest.swift in Sources */,

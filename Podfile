@@ -20,6 +20,5 @@ target 'HW9_Movie' do
   pod "youtube-ios-player-helper"
   pod 'ReadMoreTextView'
   pod 'ActivityIndicatorView'
-  pod 'Toast-Swift', '~> 5.0.1'
 
 end

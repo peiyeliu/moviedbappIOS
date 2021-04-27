@@ -11,22 +11,30 @@ struct MovieTVItemScroll: View {
     var urlQuery: String;
     var header: String
     @State private var jsonList = [MovieTVBrief]()
+    
+    @State private var selected: MovieTVBrief? = nil
     var body: some View {
         VStack (alignment: .leading){
             if(!jsonList.isEmpty){
+                if(self.header.hasPrefix("Re")){
                 Text("\(self.header) \(jsonList[0].mediaStr)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
+                }else{
+                    Text("\(self.header)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
+                }
             }
             ScrollView(.horizontal, showsIndicators: false){
-        
                 HStack(alignment: .top){
-                    ForEach(jsonList){ item in
-                        MovieTVItem(item: item);
+                    ForEach(jsonList, id: \.self){ item in
+                        MovieTVItem(item: item)
+                            .blur(radius: self.selected != nil && self.selected != item ? 10 : 0)
+                        .scaleEffect(self.selected == item ? 1.2 : 1).padding(.horizontal)
+                        }
                     }
                 }
             }.onAppear(perform: {
                 loadmovies()
         })
-        }.padding(.horizontal)
+        .padding(.horizontal)
     }
     
     func loadmovies() {

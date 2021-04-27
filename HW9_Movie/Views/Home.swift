@@ -11,7 +11,7 @@ import Kingfisher
 struct Home: View {
 
     @State private var isMovie = true
-    @State private var toggleLabel = "movie"
+    @State private var toggleLabel = "TV Shows"
     var body: some View {
             NavigationView {
                 ScrollView{
@@ -21,17 +21,21 @@ struct Home: View {
                     else{
                         HomeTV(urlQuery: "currenttv")
                     }
-                    Text("Powered by TMDB").foregroundColor(.gray)
-                    Text("Developed by Peiye Liu").foregroundColor(.gray)
+                    Link(destination: URL(string: "https://www.themoviedb.org")!, label: {
+                        VStack(alignment: .center){
+                            Text("Powered by TMDB").foregroundColor(.gray)
+                            Text("Developed by Peiye Liu").foregroundColor(.gray)
+                        }
+                    })
                 }.navigationBarItems(trailing: Button(action: {
                     if isMovie{
-                        isMovie = false;
-                        toggleLabel = "TV Shows"
+                        isMovie = false
+                        toggleLabel = "Movies"
             
                     }
                     else{
-                        isMovie = true;
-                        toggleLabel = "Movies"
+                        isMovie = true
+                        toggleLabel = "TV Shows"
                     }
                 }, label: {
                     Text("\(toggleLabel)")

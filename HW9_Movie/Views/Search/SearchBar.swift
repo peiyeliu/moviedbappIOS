@@ -13,14 +13,14 @@ struct SearchBar: UIViewRepresentable {
 
     @Binding var text: String
     var placeholder: String
-    var resultList : MovieTVBriefWithRateList;
+    @ObservedObject var resultList : MovieTVBriefWithRateList;
 
 
     class Coordinator: NSObject, UISearchBarDelegate {
 
         @Binding var text: String
-        let debouncer = Debouncer(delay: 0.8)
-        var resultListInner : MovieTVBriefWithRateList;
+        let debouncer = Debouncer(delay: 1)
+        @ObservedObject var resultListInner : MovieTVBriefWithRateList;
 
         init(text: Binding<String>, resultList: MovieTVBriefWithRateList) {
             _text = text
@@ -58,7 +58,7 @@ struct SearchBar: UIViewRepresentable {
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let data = data {
                     if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefWithRateList.self, from: data) {
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2, execute: {
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
                             self.debouncer.run(action: {
                                 self.resultListInner.results = decodedResponse.results
                             })

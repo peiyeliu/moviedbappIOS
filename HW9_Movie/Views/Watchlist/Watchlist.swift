@@ -9,14 +9,16 @@ import SwiftUI
 
 struct Watchlist: View {
     
-    @State var ItemList = [WatchListItem]()
+    //@State var ItemList = [WatchListItem]()
+    @State private var showToast: Bool = false
+    @StateObject var ListData = WatchListModel()
     let colomns = Array(repeating: GridItem(.flexible(), spacing: 5), count: 3)
     
     var body: some View {
         NavigationView {
             ScrollView{
                 VStack {
-                    if(ItemList.count == 0){
+                    if(self.ListData.items.count == 0){
                         Text("Watchlist is empty")
                             .font(.title2)
                             .foregroundColor(Color.gray)
@@ -24,23 +26,33 @@ struct Watchlist: View {
                     }
                     else{
                         LazyVGrid(columns: colomns, spacing: 5, content: {
-                            ForEach(ItemList, id: \.self){
+                            ForEach(self.ListData.items, id: \.self){
                                 item in
-                                WatchItem(item: item)
+                                WatchItem(item: item).onDrop(of: [.text], delegate: DropViewDelegate(item: item, itemData: ListData)).onDrag({
+                                    ListData.currentPage = item
+                                    return NSItemProvider(object: item as! NSItemProviderWriting)
+                                })
                             }
                         })
-                        
                     }
                 }
             }
             .navigationTitle("Watchlist").onAppear(perform: {
                 getUserDefaultData()
             })
-        }
+        }.toast(isPresented: self.$showToast) {
+            VStack(alignment: .leading){
+                HStack {
+                    Text("Remove from WatchList")
+                    Spacer()
+                    Image(systemName: "bookmark").colorMultiply(.black)
+                }
+            }
+        } //toast
     }
     
     func getUserDefaultData(){
-        ItemList = [WatchListItem]()
+        self.ListData.items = [WatchListItem]()
         for (key, value) in UserDefaults.standard.dictionaryRepresentation(){
             var media: String = ""
             var idStr: String = ""
@@ -55,9 +67,8 @@ struct Watchlist: View {
             }
             if(array.count == 2){
                 idStr = array[1]
-                debugPrint("\(media) and \(idStr)");
-                self.ItemList.append(WatchListItem(id: Int(idStr)!, media: media, poster: value as! String))
-                debugPrint(self.ItemList.count)
+                //debugPrint("\(media) and \(idStr)");
+                self.ListData.items.append(WatchListItem(id: Int(idStr)!, media: media, poster: value as! String))
             }
         }
     }
@@ -70,24 +81,41 @@ struct Watchlist_Previews: PreviewProvider {
 }
 
 
-//extension String {
-//    func index(from: Int) -> Index {
-//        return self.index(startIndex, offsetBy: from)
-//    }
-//
-//    func substring(from: Int) -> String {
-//        let fromIndex = index(from: from)
-//        return String(self[fromIndex...])
-//    }
-//
-//    func substring(to: Int) -> String {
-//        let toIndex = index(from: to)
-//        return String(self[..<toIndex])
-//    }
-//
-//    func substring(with r: Range<Int>) -> String {
-//        let startIndex = index(from: r.lowerBound)
-//        let endIndex = index(from: r.upperBound)
-//        return String(self[startIndex..<endIndex])
-//    }
-//}
+class WatchListModel: ObservableObject{
+    @Published var selectedTab = "device"
+    @Published var items = [WatchListItem]()
+    
+    @Published var currentPage: WatchListItem?
+}
+
+
+struct DropViewDelegate: DropDelegate{
+    var item: WatchListItem
+    var itemData: WatchListModel
+    
+    func performDrop(info: DropInfo) -> Bool {
+        return true
+    }
+    
+    func dropEntered(info: DropInfo) {
+        let fromIndex = itemData.items.firstIndex{
+            (item) -> Bool in
+            return item.id == itemData.currentPage?.id
+        } ?? 0
+        
+        let toIndex = itemData.items.firstIndex{
+            (item) -> Bool in
+            return item.id == self.item.id
+        } ?? 0
+        
+        if fromIndex != toIndex{
+            let fromPage = itemData.items[fromIndex]
+            itemData.items[fromIndex] = itemData.items[toIndex]
+            itemData.items[toIndex] = fromPage
+        }
+    }
+    
+    func dropUpdated(info: DropInfo) -> DropProposal? {
+        return DropProposal(operation: .move)
+    }
+}

@@ -12,6 +12,8 @@ struct HW9_MovieApp: App {
     var body: some Scene {
         WindowGroup {
             HomeScreen()
+            //Demoview()
+            //ToastDemo()
             //DemoSearchBar()
             //ImageCarouselViewWapper(urlQuery: "currentmovie")
             //Home()
