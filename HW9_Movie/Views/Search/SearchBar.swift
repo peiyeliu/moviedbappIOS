@@ -30,7 +30,11 @@ struct SearchBar: UIViewRepresentable {
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             text = searchText
             if(text.count > 2){
-                loadmovies()
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.2, execute: {
+                    self.debouncer.run(action: {
+                        self.loadmovies()
+                            })
+                        })
             }
         }
         
@@ -54,15 +58,14 @@ struct SearchBar: UIViewRepresentable {
                 return
             }
             let request = URLRequest(url: url)
-            
+            debugPrint("a new request was made with : \(text)")
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let data = data {
                     if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefWithRateList.self, from: data) {
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5, execute: {
-                            self.debouncer.run(action: {
+                        //DispatchQueue.main.sync{
                                 self.resultListInner.results = decodedResponse.results
-                            })
-                        })
+                        //}
+                        
                         return
                     }
                 }

@@ -18,7 +18,7 @@ struct ReviewScroll: View {
                 Text("Reviews").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
             }
             ForEach(self.jsonList){ item in
-                ReviewItem(review: item);
+                ReviewItem(review: item)
             }
         }.onAppear(perform: {
             loadreviews()

@@ -31,7 +31,7 @@ struct Watchlist: View {
                         LazyVGrid(columns: colomns, spacing: 5, content: {
                             ForEach(self.ListData.items, id: \.self){
                                 item in
-                                WatchItem(item: item)
+                                WatchItem(item: item).frame(height:200)
                                 }
                             }
                         ).itemtoast(isPresented: self.$showToast) {
@@ -52,7 +52,9 @@ struct Watchlist: View {
                             }
                     }
                 }
-            }
+            }.onAppear(perform: {
+                getUserDefaultData()
+            })
             .navigationTitle("Watchlist").onAppear(perform: {
                 getUserDefaultData()
             })

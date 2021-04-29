@@ -14,14 +14,14 @@ struct ReviewItem: View {
             destination: ReviewPage(review: review)){
             VStack {
                 VStack(alignment: .leading){
-                    Text("A review by \(review.author)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    Text("Written by \(review.author) on \(review.time)").font(.title3).foregroundColor(Color.gray)
+                    Text("A review by \(review.author)").font(/*@START_MENU_TOKEN@*/.headline/*@END_MENU_TOKEN@*/).fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    Text("Written by \(review.author) on \(review.time)").font(.subheadline).foregroundColor(Color.gray)
                     HStack {
                         Image(systemName: "star.fill")
                             .foregroundColor(.red)
-                        Text("\(review.rate)/5.0").font(.title3)
+                        Text("\(review.rate)/5.0").font(.body)
                     }
-                    Text(review.content).font(.title3).lineLimit(3)
+                    Text(review.content).font(.body).lineLimit(3)
                 }
                 .padding(.all)
                 

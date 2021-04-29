@@ -8,25 +8,25 @@
 import SwiftUI
 
 struct Search: View {
-    @State private var searchText: String = ""
-    @ObservedObject var jsonList = MovieTVBriefWithRateList();
+    @State var searchText: String = ""
+    @ObservedObject var jsonList: MovieTVBriefWithRateList = MovieTVBriefWithRateList();
 
     var body: some View {
         NavigationView {
             VStack {
-                SearchBar(text: $searchText, placeholder: "Search", resultList: self.jsonList)
+                SearchBar(text: $searchText, placeholder: "Search", resultList: jsonList)
                 
                 Text("The search text is: \(searchText)")
                     .foregroundColor(Color.white)
- 
-                VStack {
-                    ScrollView{
-                        ForEach(jsonList.results){ item in
-                            SearchResultItem(search: item);
-                        }
-                    }
-//                    SearchResultList(jsonList: jsonList.results)
-                }
+
+//                VStack {
+//                    ScrollView{
+//                        ForEach(jsonList.results){ item in
+//                            SearchResultItem(search: item);
+//                        }
+//                    }
+                    SearchResultList(jsonList: jsonList.results)
+//                }
                 
             }.navigationBarTitle(Text("Search"))
                 
