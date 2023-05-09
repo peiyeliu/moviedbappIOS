@@ -11,6 +11,8 @@ import SwiftUI
 struct GrowingArcIndicatorView: View {
 
     let color: Color
+    let lineWidth: CGFloat
+    
     @State private var animatableParameter: Double = 0
 
     public var body: some View {
@@ -19,11 +21,13 @@ struct GrowingArcIndicatorView: View {
             .repeatForever(autoreverses: false)
         
         return GrowingArc(p: animatableParameter)
-            .stroke(color, lineWidth: 4)
+            .stroke(color, lineWidth: lineWidth)
             .onAppear {
-                self.animatableParameter = 0
-                withAnimation(animation) {
-                    self.animatableParameter = 1
+                animatableParameter = 0
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    withAnimation(animation) {
+                        animatableParameter = 1
+                    }
                 }
             }
     }

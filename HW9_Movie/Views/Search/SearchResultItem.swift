@@ -2,7 +2,7 @@
 //  SearchResultItem.swift
 //  HW9_Movie
 //
-//  Created by PYL on 4/10/21.
+//  Created by pyl on 5/9/23.
 //
 
 import SwiftUI
@@ -37,8 +37,3 @@ struct SearchResultItem: View {
     }
 }
 
-struct SearchResultItem_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchResultItem(search: searchDemo[0])
-    }
-}

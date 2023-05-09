@@ -38,7 +38,6 @@ struct PeopleScroll: View {
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode(CastList.self, from: data) {
                     DispatchQueue.main.async {
-                        //debugPrint(decodedResponse)
                         self.jsonList = decodedResponse.results
                     }
                     return

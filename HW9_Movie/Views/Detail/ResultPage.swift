@@ -7,15 +7,20 @@
 
 import SwiftUI
 import youtube_ios_player_helper
+import Combine
+
+
 
 struct ResultPage: View {
     var media: String
     var id: Int
-    
+        
     @State private var showToast: Bool = false
     @State private var itemAdded: Bool = false
-    //@State private var bookmarkLabelName = "bookmark"
-    
+    @State private var refreshView: Bool = false
+
+
+
     @State private var jsonData = MovieTVDetail(id: 0, year: "2022", media: "dummy", mediaStr: "dummy", name: "dummy", poster: "dummy", genre: "dummy", rate: "dummy", youtube: "dummy", overview: "dummy")
     
     
@@ -55,7 +60,7 @@ struct ResultPage: View {
             }.toast(isPresented: self.$showToast) {
                 VStack(alignment: .leading){
                     HStack {
-                        if itemAdded {
+                        if itemAdded && refreshView || !itemAdded && !refreshView {
                             Text("\(jsonData.name) was added in WatchList")
                         }
                         else{
@@ -74,22 +79,17 @@ struct ResultPage: View {
                             else {
                                 Image(systemName: "bookmark").colorMultiply(.black)
                             }
-                            //Image(systemName: bookmarkLabelName).colorMultiply(.black)
                         }.onTapGesture {
                             let key = jsonData.media + "/" + String(id);
                             if(!isKeyPresentInUserDefaults(key: key)){
                                 UserDefaults.standard.set(jsonData.poster, forKey: key)
-                                //watchlist.set(jsonData.poster, forKey: key)
                                 debugPrint("item added !!!!!!!\(key)")
-                                itemAdded = true;
-                                //bookmarkLabelName = "bookmark.fill"
+                                itemAdded = true
                             }
                             else{
                                 UserDefaults.standard.removeObject(forKey: key)
-                                //watchlist.removeObject(forKey: key)
                                 debugPrint("item removed !!!!!!!")
                                 itemAdded = false
-                                //bookmarkLabelName = "bookmark"
                             }
                             if (!self.showToast) {
                                 withAnimation {
@@ -107,10 +107,7 @@ struct ResultPage: View {
                         }
                     }).onAppear(perform: {
                         loaddetail()
-                        let key = jsonData.media + "/" + String(id);
-                        if(isKeyPresentInUserDefaults(key: key)){
-                            itemAdded = true
-                        }
+                        itemAdded = UserDefaults.standard.bool(forKey: "itemAdded_\(media)_\(id)")
                     })
     }
     

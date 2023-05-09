@@ -1,11 +1,13 @@
 PODS:
-  - ActivityIndicatorView (0.0.6)
-  - Kingfisher (6.2.1)
+  - ActivityIndicatorView (1.1.1)
+  - Alamofire (5.6.4)
+  - Kingfisher (6.3.1)
   - ReadMoreTextView (3.0.1)
-  - youtube-ios-player-helper (1.0.3)
+  - youtube-ios-player-helper (1.0.4)
 
 DEPENDENCIES:
   - ActivityIndicatorView
+  - Alamofire
   - Kingfisher (~> 6.2)
   - ReadMoreTextView
   - youtube-ios-player-helper
@@ -13,16 +15,18 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - ActivityIndicatorView
+    - Alamofire
     - Kingfisher
     - ReadMoreTextView
     - youtube-ios-player-helper
 
 SPEC CHECKSUMS:
-  ActivityIndicatorView: f7c08841e302c86d16c29b7c9554fce2a2bd9183
-  Kingfisher: e71c6fac2aebb1262888cabc2cb13d313362a48f
+  ActivityIndicatorView: f14ac8e200a344fe992577807998b0c8562bd964
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   ReadMoreTextView: 19147adf93abce6d7271e14031a00303fe28720d
-  youtube-ios-player-helper: 0185c57db23c80d63d6ca11251d110abb8a4ca61
+  youtube-ios-player-helper: e9b97535e816db3152179d84d999bc1807ecd689
 
-PODFILE CHECKSUM: 3618dfa819707544a2a84bfd5411e5b2954c9b22
+PODFILE CHECKSUM: 93fc053d6f416976a8da99da51b6fec4c510044a
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.12.1
