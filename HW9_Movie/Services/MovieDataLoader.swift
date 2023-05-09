@@ -8,8 +8,8 @@ import SwiftUI
 import Foundation
 
 //var AWSURL = "http://hw9movieiosappbackend-env.eba-bvjidbnk.us-west-1.elasticbeanstalk.com/"
-//var baseURL = "http://localhost:3000/"
-var baseURL = "http://hw9movieiosappbackend-env.eba-bvjidbnk.us-west-1.elasticbeanstalk.com/"
+var baseURL = "http://localhost:3000/"
+//var baseURL = "http://hw9movieiosappbackend-env.eba-bvjidbnk.us-west-1.elasticbeanstalk.com/"
 func resetDefaults() {
     let defaults = UserDefaults.standard
     let dictionary = defaults.dictionaryRepresentation()

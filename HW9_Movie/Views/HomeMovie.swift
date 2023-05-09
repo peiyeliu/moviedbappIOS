@@ -23,17 +23,17 @@ struct HomeMovie: View {
                                         .padding(.leading)
                                     VStack{
                                         VStack {
-                                            ImageCarouselViewWapper(urlQuery: "currentmovie").padding(.horizontal).frame(width: 360, height: 380, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                            ImageCarouselViewWapper(urlQuery: "list/current/movie").padding(.horizontal).frame(width: 360, height: 380, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                         }.padding(.all)
                                     }.frame( alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                 }
                             
                                 VStack{
-                                    MovieTVItemScroll(urlQuery: "topmovie", header: "Top Rated")
+                                    MovieTVItemScroll(urlQuery: "list/top/movie", header: "Top Rated")
                                 }.frame(height: 300)
 
                                 VStack{
-                                    MovieTVItemScroll(urlQuery: "popmovie", header: "Popular")
+                                    MovieTVItemScroll(urlQuery: "list/pop/movie", header: "Popular")
                                 }.frame(height: 300)
                             
 
@@ -49,30 +49,45 @@ struct HomeMovie: View {
     
     func loadmovies() {
         guard let url = URL(string: getURLString(str: urlQuery)) else {
-            print("Invalid URL")
+            print("Invalid URL (HomeMovie)")
             return
         }
         let request = URLRequest(url: url)
-        
+        print(url)
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefList.self, from: data) {
-
-                    DispatchQueue.main.sync{
-                        self.jsonList = decodedResponse.results
-                    }
-                    showLoadingPage = false
-                    return
-                }
+            if let error = error {
+                print("Error fetching data: \(error.localizedDescription)")
+                return
             }
 
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            if let response = response as? HTTPURLResponse, !(200...299).contains(response.statusCode) {
+                print("Invalid response status code: \(response.statusCode)")
+                return
+            }
+
+            guard let data = data else {
+                print("Data is missing or empty (HomeMovie)")
+                return
+            }
+            
+            
+            do {
+                let decodedResponse = try JSONDecoder().decode(MovieTVBriefList.self, from: data)
+                DispatchQueue.main.async {
+                    self.jsonList = decodedResponse.results
+                }
+                showLoadingPage = false
+            } catch let decodingError {
+                print("Error decoding JSON: \(decodingError.localizedDescription)")
+                print("At (HomeMovie)")
+            }
         }.resume()
     }
 }
 
 struct HomeMovie_Previews: PreviewProvider {
     static var previews: some View {
-        HomeMovie(urlQuery: "currentmovie")
+        HomeMovie(urlQuery: "list/current/movie")
     }
 }
+

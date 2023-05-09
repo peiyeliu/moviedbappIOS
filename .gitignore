@@ -1,0 +1,43 @@
+# Xcode
+#
+# Ignore Xcode project files and other settings
+#
+# http://gitignore.io/api/xcode
+
+## MAC OS
+.DS_Store
+
+## User settings
+xcuserdata/
+
+## Build generated
+build/
+DerivedData/
+
+## Other generated files
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xccheckout
+*.xcuserstate
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.swiftdoc
+*.swiftmodule
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+## Swift Package Manager
+Package.pins
+.build/
+
+## CocoaPods
+Pods/
+Podfile.lock

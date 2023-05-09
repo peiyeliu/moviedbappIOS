@@ -27,7 +27,7 @@ struct ReviewScroll: View {
     
     func loadreviews() {
         guard let url = URL(string: getURLStringWithMediaAndID(query: "review", media: media, id: id)) else {
-            print("Invalid URL")
+            print("Invalid URL (ReviewScroll)")
             return
         }
         let request = URLRequest(url: url)
@@ -42,7 +42,7 @@ struct ReviewScroll: View {
                 }
             }
 
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (ReviewScroll)")")
         }.resume()
     }
 }

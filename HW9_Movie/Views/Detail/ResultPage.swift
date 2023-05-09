@@ -117,22 +117,22 @@ struct ResultPage: View {
     
     func loaddetail() {
         guard let url = URL(string: getURLStringWithMediaAndID(query: "watch", media: media, id: id)) else {
-            print("Invalid URL")
+            print("Invalid URL (ResultPage)")
             return
         }
         let request = URLRequest(url: url)
-        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 do {
                     let decodedData = try JSONDecoder().decode(MovieTVDetail.self,from: data)
                         jsonData = decodedData
                     } catch {
-                        print("decode error")
+                        print("movie tv detail decode error (ResultPage) ")
+                        print(url)
                     }
                 return
             }
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (ResultPage)")")
         }.resume()
     }
 }

@@ -16,10 +16,10 @@ struct Home: View {
             NavigationView {
                 ScrollView{
                     if isMovie{
-                        HomeMovie(urlQuery: "currentmovie")
+                        HomeMovie(urlQuery: "list/current/movie")
                     }
                     else{
-                        HomeTV(urlQuery: "currenttv")
+                        HomeTV(urlQuery: "list/current/tv")
                     }
                     Link(destination: URL(string: "https://www.themoviedb.org")!, label: {
                         VStack(alignment: .center){

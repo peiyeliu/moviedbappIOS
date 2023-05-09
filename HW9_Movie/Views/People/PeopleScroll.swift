@@ -29,11 +29,11 @@ struct PeopleScroll: View {
     
     func loadcasts() {
         guard let url = URL(string: getURLStringWithMediaAndID(query: "cast", media: media, id: id)) else {
-            print("Invalid URL")
+            print("Invalid URL (People Scroll)")
             return
         }
         let request = URLRequest(url: url)
-        
+        print(url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode(CastList.self, from: data) {
@@ -45,7 +45,7 @@ struct PeopleScroll: View {
                 }
             }
 
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (People Scroll)")")
         }.resume()
     }
     

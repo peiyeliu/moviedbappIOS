@@ -23,17 +23,17 @@ struct HomeTV: View {
                                 .padding(.leading)
                             VStack{
                                 VStack {
-                                    ImageCarouselViewWapper(urlQuery: "currenttv").padding(.horizontal).frame(width: 360, height: 380, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                    ImageCarouselViewWapper(urlQuery: "list/current/tv").padding(.horizontal).frame(width: 360, height: 380, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                 }.padding(.all)
                             }.frame( alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         }
                     
                         VStack{
-                            MovieTVItemScroll(urlQuery: "toptv", header: "Top Rated")
+                            MovieTVItemScroll(urlQuery: "list/top/tv", header: "Top Rated")
                         }
 
                         VStack{
-                            MovieTVItemScroll(urlQuery: "poptv", header: "Popular")
+                            MovieTVItemScroll(urlQuery: "list/pop/tv", header: "Popular")
                         }
                         
                         
@@ -54,11 +54,11 @@ struct HomeTV: View {
 
 func loadmovies() {
 guard let url = URL(string: getURLString(str: urlQuery)) else {
-    print("Invalid URL")
+    print("Invalid URL (HomeTV)")
     return
 }
 let request = URLRequest(url: url)
-
+    print(url)
 URLSession.shared.dataTask(with: request) { data, response, error in
     if let data = data {
         if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefList.self, from: data) {
@@ -71,13 +71,13 @@ URLSession.shared.dataTask(with: request) { data, response, error in
         }
     }
 
-    print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+    print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (HomeTV)")")
 }.resume()
 }
 }
 
 struct HomeTV_Previews: PreviewProvider {
     static var previews: some View {
-        HomeTV(urlQuery: "currenttv")
+        HomeTV(urlQuery: "list/current/tv")
     }
 }

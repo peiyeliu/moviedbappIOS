@@ -21,7 +21,7 @@ struct MovieURLTest: View {
     }
     
     func loadData() {
-        guard let url = URL(string: "http://localhost:3000/topmovie") else {
+        guard let url = URL(string: "http://localhost:3000/list/top/movie") else {
             print("Invalid URL")
             return
         }

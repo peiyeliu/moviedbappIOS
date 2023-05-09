@@ -36,7 +36,7 @@ struct ImageCarouselViewWapper: View {
             return
         }
         let request = URLRequest(url: url)
-        
+        print(url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefList.self, from: data) {
@@ -54,6 +54,6 @@ struct ImageCarouselViewWapper: View {
 
 struct ImageCarouselViewWapper_Previews: PreviewProvider {
     static var previews: some View {
-        ImageCarouselViewWapper(urlQuery: "currentmovie")
+        ImageCarouselViewWapper(urlQuery: "list/current/movie")
     }
 }

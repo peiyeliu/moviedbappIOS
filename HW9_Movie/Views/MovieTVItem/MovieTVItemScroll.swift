@@ -39,11 +39,11 @@ struct MovieTVItemScroll: View {
     
     func loadmovies() {
         guard let url = URL(string: getURLString(str: urlQuery)) else {
-            print("Invalid URL")
+            print("Invalid URL (MovieTVItemScroll)")
             return
         }
         let request = URLRequest(url: url)
-        
+        print(url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefList.self, from: data) {
@@ -54,7 +54,7 @@ struct MovieTVItemScroll: View {
                 }
             }
 
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (MovieTVItemScroll)")")
         }.resume()
     }
 
@@ -63,6 +63,6 @@ struct MovieTVItemScroll: View {
 
 struct MovieTVItemScroll_Previews: PreviewProvider {
     static var previews: some View {
-        MovieTVItemScroll(urlQuery: "topmovie", header: "Recommended");
+        MovieTVItemScroll(urlQuery: "list/top/movie", header: "Recommended");
     }
 }

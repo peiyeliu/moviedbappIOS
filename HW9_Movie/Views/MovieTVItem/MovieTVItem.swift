@@ -49,18 +49,18 @@ struct MovieTVItem: View {
             return
         }
         let request = URLRequest(url: url)
-        
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 do {
                     let decodedData = try JSONDecoder().decode(MovieTVDetail.self,from: data)
                         detail = decodedData
                     } catch {
-                        print("decode error")
+                        print("movie tv detail decode error (MovieTVItem)")
+                        print(url)
                     }
                 return
             }
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (MovieTVItem)")")
         }.resume()
     }
 }
