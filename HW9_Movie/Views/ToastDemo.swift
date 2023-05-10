@@ -107,16 +107,19 @@ struct Toast<Presenting, Content>: View where Presenting: View, Content: View {
 
         return GeometryReader { geometry in
             ZStack(alignment: .top) {
-                self.presenter().blur(radius: self.isPresented ? 1 : 0)
+                self.presenter()
 
-                ZStack {
-                    Rectangle()
-                        .fill(Color.gray).cornerRadius(20)
-                    self.content().padding(.all)
-                }.position(x: 150, y: 550)
-                //ZStack (inner)
-                .frame(width: geometry.size.width / 1.25, height: geometry.size.height / 10)
-                .opacity(self.isPresented ? 1 : 0)
+                ZStack(alignment: .top) {
+                               self.presenter()
+                               //Move the Toast to be after the presenter
+                               ZStack {
+                                   Rectangle()
+                                       .fill(Color.gray).cornerRadius(20)
+                                   self.content().padding(.all)
+                               }
+                               .frame(width: geometry.size.width, height: geometry.size.height / 10) //Change width to take full size
+                               .opacity(self.isPresented ? 1 : 0)
+                           }
                 
             }
         }
@@ -142,16 +145,15 @@ struct ItemToast<Presenting, Content>: View where Presenting: View, Content: Vie
 
         return GeometryReader { geometry in
             ZStack(alignment: .top) {
-                self.presenter().blur(radius: self.isPresented ? 1 : 0)
+                self.presenter()
 
                 ZStack {
-                    Rectangle()
-                        .fill(Color.gray).cornerRadius(20)
-                    self.content().padding(.all)
-                }.offset(x:50, y: 100)
-                //ZStack (inner)
-                .frame(width: geometry.size.width / 1.25, height: geometry.size.height / 10)
-                .opacity(self.isPresented ? 1 : 0)
+                                   Rectangle()
+                                       .fill(Color.gray).cornerRadius(20)
+                                   self.content().padding(.all)
+                               }
+                               .frame(width: geometry.size.width, height: geometry.size.height / 10) //Change width to take full size
+                               .opacity(self.isPresented ? 1 : 0)
                 
             }
         }
