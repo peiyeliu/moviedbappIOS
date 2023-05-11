@@ -19,7 +19,12 @@ class SearchViewModel: ObservableObject {
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .removeDuplicates()
             .sink(receiveValue: { [weak self] text in
-                self?.search(text)
+                // query will be made only when user type at least 3 letters
+                if text.count >= 3 {
+                    self?.search(text)
+                } else {
+                    self?.searchResults = []
+                }
             })
             .store(in: &cancellables)
     }

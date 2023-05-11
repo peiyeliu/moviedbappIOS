@@ -14,12 +14,12 @@ struct HomeTV: View {
     
     @StateObject var topTVviewModel = MovieTVItemScrollViewModel()
     @StateObject var popTVviewModel = MovieTVItemScrollViewModel()
-    
+    @StateObject var imageCarouselViewModel = ImageCarouselViewModel();
     
     var body: some View {
         
         ZStack {
-            LoadViewer(shouldAnimate: $showLoadingPage)
+            //LoadViewer(shouldAnimate: $showLoadingPage)
             ScrollView {
                 VStack(alignment: .leading){
                     Text("Trending")
@@ -28,7 +28,7 @@ struct HomeTV: View {
                         .padding(.leading)
                     VStack{
                         VStack {
-                            ImageCarouselViewWapper(urlQuery: "list/current/tv").padding(.horizontal).frame(width: 360, height: 380, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            ImageCarouselViewWapper(urlQuery: "list/current/tv", carouselViewModel: imageCarouselViewModel).padding(.horizontal).frame(width: 360, height: 380, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         }.padding(.all)
                     }.frame( alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 }
@@ -41,13 +41,8 @@ struct HomeTV: View {
                     MovieTVItemScroll(urlQuery: "list/pop/tv", header: "Popular", viewModel: popTVviewModel)
                 }
                 
-                
-                
-                
+
             }
-            .onAppear(perform: {
-                loadmovies()
-            })
             .navigationBarItems(trailing:
                                     HStack{
                 
@@ -57,27 +52,6 @@ struct HomeTV: View {
         
     }
     
-    func loadmovies() {
-        guard let url = URL(string: getURLString(str: urlQuery)) else {
-            debugPrint("Invalid URL (HomeTV)")
-            return
-        }
-        let request = URLRequest(url: url)
-        debugPrint(url)
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefList.self, from: data) {
-                    
-                    //DispatchQueue.main.sync{
-                    self.jsonList = decodedResponse.results
-                    //}
-                    showLoadingPage = false
-                    return
-                }
-            }
-            
-            debugPrint("Fetch failed: \(error?.localizedDescription ?? "Unknown error (HomeTV)")")
-        }.resume()
-    }
+    
 }
 
