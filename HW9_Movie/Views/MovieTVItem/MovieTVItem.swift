@@ -45,7 +45,7 @@ struct MovieTVItem: View {
     
     func loaddetail(media: String, id: Int) {
         guard let url = URL(string: getURLStringWithMediaAndID(query: "watch", media: media, id: id)) else {
-            print("Invalid URL")
+            debugPrint("Invalid URL")
             return
         }
         let request = URLRequest(url: url)
@@ -55,12 +55,12 @@ struct MovieTVItem: View {
                     let decodedData = try JSONDecoder().decode(MovieTVDetail.self,from: data)
                         detail = decodedData
                     } catch {
-                        print("movie tv detail decode error (MovieTVItem)")
-                        print(url)
+                        debugPrint("movie tv detail decode error (MovieTVItem)")
+                        debugPrint(url)
                     }
                 return
             }
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (MovieTVItem)")")
+            debugPrint("Fetch failed: \(error?.localizedDescription ?? "Unknown error (MovieTVItem)")")
         }.resume()
     }
 }

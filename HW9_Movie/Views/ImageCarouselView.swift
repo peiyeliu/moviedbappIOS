@@ -43,28 +43,3 @@ struct ImageCarouselView<Content: View>: View {
         }
 }
 
-struct ImageCarouselView_Previews: PreviewProvider {
-    static var previews: some View {
-        
-        GeometryReader { geometry in
-            ImageCarouselView(numberOfImages: 3) {
-                Image("charleyrivers")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .clipped()
-                Image("lakemcdonald")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .clipped()
-                Image("silversalmoncreek")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-                    .clipped()
-            }
-        }.frame(width: UIScreen.main.bounds.width, height: 300, alignment: .center)
-    }
-}
-

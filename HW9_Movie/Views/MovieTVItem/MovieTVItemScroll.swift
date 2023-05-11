@@ -12,11 +12,11 @@ class MovieTVItemScrollViewModel: ObservableObject {
     
     func loadmovies(urlQuery: String) {
         guard let url = URL(string: getURLString(str: urlQuery)) else {
-            print("Invalid URL (MovieTVItemScroll)")
+            debugPrint("Invalid URL (MovieTVItemScroll)")
             return
         }
         let request = URLRequest(url: url)
-        print(url)
+        debugPrint(url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefList.self, from: data) {
@@ -26,7 +26,7 @@ class MovieTVItemScrollViewModel: ObservableObject {
                     return
                 }
             }
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (MovieTVItemScroll)")")
+            debugPrint("Fetch failed: \(error?.localizedDescription ?? "Unknown error (MovieTVItemScroll)")")
         }.resume()
     }
 }

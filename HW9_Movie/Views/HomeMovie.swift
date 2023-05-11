@@ -52,24 +52,24 @@ struct HomeMovie: View {
     
     func loadmovies() {
         guard let url = URL(string: getURLString(str: urlQuery)) else {
-            print("Invalid URL (HomeMovie)")
+            debugPrint("Invalid URL (HomeMovie)")
             return
         }
         let request = URLRequest(url: url)
-        print(url)
+        debugPrint(url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                print("Error fetching data: \(error.localizedDescription)")
+                debugPrint("Error fetching data: \(error.localizedDescription)")
                 return
             }
             
             if let response = response as? HTTPURLResponse, !(200...299).contains(response.statusCode) {
-                print("Invalid response status code: \(response.statusCode)")
+                debugPrint("Invalid response status code: \(response.statusCode)")
                 return
             }
             
             guard let data = data else {
-                print("Data is missing or empty (HomeMovie)")
+                debugPrint("Data is missing or empty (HomeMovie)")
                 return
             }
             
@@ -81,8 +81,8 @@ struct HomeMovie: View {
                 }
                 showLoadingPage = false
             } catch let decodingError {
-                print("Error decoding JSON: \(decodingError.localizedDescription)")
-                print("At (HomeMovie)")
+                debugPrint("Error decoding JSON: \(decodingError.localizedDescription)")
+                debugPrint("At (HomeMovie)")
             }
         }.resume()
     }

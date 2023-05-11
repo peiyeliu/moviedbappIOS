@@ -32,11 +32,11 @@ struct ImageCarouselViewWapper: View {
     }
     func loadmovies() {
         guard let url = URL(string: getURLString(str: urlQuery)) else {
-            print("Invalid URL")
+            debugPrint("Invalid URL")
             return
         }
         let request = URLRequest(url: url)
-        print(url)
+        debugPrint(url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefList.self, from: data) {
@@ -46,14 +46,7 @@ struct ImageCarouselViewWapper: View {
                     return
                 }
             }
-
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+            debugPrint("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
         }.resume()
-    }
-}
-
-struct ImageCarouselViewWapper_Previews: PreviewProvider {
-    static var previews: some View {
-        ImageCarouselViewWapper(urlQuery: "list/current/movie")
     }
 }

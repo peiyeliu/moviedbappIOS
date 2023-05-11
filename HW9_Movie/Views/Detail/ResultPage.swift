@@ -15,74 +15,75 @@ struct ResultPage: View {
     var media: String
     var id: Int
     
-    @State private var showToast: Bool = false
-    @State private var itemAdded: Bool = false
-    
-    
+    @State private var showAlert = false
+    @State private var itemAdded = false
+    @State private var isLoading = true // New state property for loading
     
     @StateObject private var viewModel = ResultPageViewModel()
-    @StateObject var reviewViewModel = ReviewScrollViewModel()
-    @StateObject var recommendViewModel = MovieTVItemScrollViewModel()
+    @StateObject private var castViewModel = PeopleViewModel()
+    @StateObject private var reviewViewModel = ReviewScrollViewModel()
+    @StateObject private var recommendViewModel = MovieTVItemScrollViewModel()
     
     var body: some View {
         VStack {
-            ScrollView {
-                VStack{
-                    YoutubePicker(text: viewModel.jsonData.youtube)
-                        .frame(height: 220)
-                        .padding(.horizontal)
-                    
-                    VStack(alignment: .leading){
-                        Text(viewModel.jsonData.name)
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .padding(.horizontal)
-                        
-                        Text("\(viewModel.jsonData.year) | \(viewModel.jsonData.genre)")
-                            .font(.title3)
-                            .padding(.top, 5.0)
-                            .padding(.horizontal)
-                        
-                        HStack{
-                            Image(systemName: "star.fill")
-                                .foregroundColor(.red)
-                            Text("\(viewModel.jsonData.rate)/5.0")
-                                .font(.title3)
+            if isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+            } else {
+                ScrollView {
+                    VStack {
+                        if let youtube = viewModel.jsonData?.youtube {
+                            YoutubePicker(text: youtube)
+                                .frame(height: 220)
+                                .padding(.horizontal)
                         }
-                        .padding(.top, 5.0)
-                        .padding(.horizontal)
                         
-                        Description(text: viewModel.jsonData.overview)
+                        if let name = viewModel.jsonData?.name,
+                           let year = viewModel.jsonData?.year,
+                           let genre = viewModel.jsonData?.genre,
+                           let rate = viewModel.jsonData?.rate {
+                            Text(name)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .padding(.horizontal)
+                            
+                            Text("\(year) | \(genre)")
+                                .font(.title3)
+                                .padding(.top, 5.0)
+                                .padding(.horizontal)
+                            
+                            HStack {
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.red)
+                                Text("\(rate)/5.0")
+                                    .font(.title3)
+                            }
                             .padding(.top, 5.0)
+                            .padding(.horizontal)
+                        }
+                        
+                        if let overview = viewModel.jsonData?.overview {
+                            Description(text: overview)
+                                .padding(.top, 5.0)
+                        }
                         
                         Divider()
-                        
-                        PeopleScroll(viewModel: PeopleViewModel(media: media, id: id))
+                        PeopleScroll(media: media, id: id, viewModel: castViewModel)
                         
                         Divider()
-                        
                         ReviewScroll(media: media, id: id, viewModel: reviewViewModel)
                         
                         Divider()
-                        
                         MovieTVItemScroll(urlQuery: "recommend/\(media)/\(id)", header: "Recommended", viewModel: recommendViewModel)
                     }
                     .padding(.horizontal)
                 }
             }
-//            .toast(isPresented: self.$showToast) {
-//                VStack(alignment: .leading){
-//                    HStack {
-//                        if itemAdded{
-//                            Text("\(viewModel.jsonData.name) was added in WatchList")
-//                        }
-//                        else{
-//                            Text("\(viewModel.jsonData.name) was removed from WatchList")
-//                        }
-//                    }
-//                }
-//            }
-        }.navigationBarItems(
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text(itemAdded ? "\(viewModel.jsonData?.name ?? "") was added in WatchList" : "\(viewModel.jsonData?.name ?? "") was removed from WatchList"))
+        }
+        .navigationBarItems(
             trailing:
                 HStack{
                     VStack{
@@ -93,27 +94,16 @@ struct ResultPage: View {
                             Image(systemName: "bookmark").colorMultiply(.black)
                         }
                     }
-//                    .onTapGesture {
-//                        let key = "itemAdded_\(media)_\(id)";
-//                        if(!isKeyPresentInUserDefaults(key: key)){
-//                            UserDefaults.standard.set(viewModel.jsonData.poster, forKey: key)
-//                            debugPrint("item added !!!!!!!\(key)")
-//                            itemAdded = true
-//                        }
-//                        else{
-//                            UserDefaults.standard.removeObject(forKey: key)
-//                            debugPrint("item removed !!!!!!!")
-//                            itemAdded = false
-//                        }
-//                        if (!self.showToast) {
-//                            withAnimation {
-//                                self.showToast = true
-//                            }
-//                        }
-//                    }
+                    .onTapGesture {
+                        itemAdded = !itemAdded
+                        showAlert = !showAlert
+                        // TODO: ontap gesture for bookmark
+                    }
                     
-                    Link(destination: URL(string: "https://www.facebook.com/sharer/sharer.php?u=https://youtu.be/\(viewModel.jsonData.youtube)")!){
-                        Image("facebook-app-symbol").resizable().frame(width: 20, height: 20)
+                    Link(destination: URL(string: "https://www.facebook.com/sharer/sharer.php?u=https://youtu.be/\(viewModel.jsonData?.youtube ?? "")")!) {
+                        Image("facebook-app-symbol")
+                            .resizable()
+                            .frame(width: 20, height: 20)
                     }
                     
                     Link(destination: URL(string: "https://twitter.com/intent/tweet?text=Check+out+this+link%3A+https%3A%2F%2Fwww.themoviedb.org%2F\(media)%2F\(id)+%23CSCI571USCFilms")!){
@@ -121,20 +111,19 @@ struct ResultPage: View {
                     }
                 }).onAppear(perform: {
                     viewModel.loaddetail(media: media, id: id)
-//                    itemAdded = UserDefaults.standard.bool(forKey: "itemAdded_\(media)_\(id)")
                 })
+                .onReceive(viewModel.$jsonData) { _ in
+                    isLoading = false // Set loading state to false when data is received
+                }
     }
-    
-    
-    
 }
 
 class ResultPageViewModel: ObservableObject {
-    @Published var jsonData = MovieTVDetail(id: 0, year: "2022", media: "dummy", mediaStr: "dummy", name: "dummy", poster: "dummy", genre: "dummy", rate: "dummy", youtube: "dummy", overview: "dummy")
+    @Published var jsonData: MovieTVDetail?
     
     func loaddetail(media: String, id: Int) {
         guard let url = URL(string: getURLStringWithMediaAndID(query: "watch", media: media, id: id)) else {
-            print("Invalid URL (ResultPage)")
+            debugPrint("Invalid URL (ResultPage)")
             return
         }
         let request = URLRequest(url: url)
@@ -146,12 +135,12 @@ class ResultPageViewModel: ObservableObject {
                         self.jsonData = decodedData
                     }
                 } catch {
-                    print("movie tv detail decode error (ResultPage) ")
-                    print(url)
+                    debugPrint("movie tv detail decode error (ResultPage) ")
+                    debugPrint(url)
                 }
                 return
             }
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (ResultPage)")")
+            debugPrint("Fetch failed: \(error?.localizedDescription ?? "Unknown error (ResultPage)")")
         }.resume()
     }
 }

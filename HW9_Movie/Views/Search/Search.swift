@@ -30,7 +30,7 @@ class SearchViewModel: ObservableObject {
             return
         }
         let url = URL(string: "http://localhost:3000/search/\(text.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!)")!
-        print(url)
+        debugPrint(url)
         URLSession.shared.dataTaskPublisher(for: url)
             .map { $0.data }
             .decode(type: MovieTVBriefWithRateList.self, decoder: JSONDecoder())
@@ -39,7 +39,7 @@ class SearchViewModel: ObservableObject {
             .sink(receiveCompletion: { completion in
                 switch completion {
                 case .failure(let error):
-                    print("Error: \(error)")
+                    debugPrint("Error: \(error)")
                 case .finished:
                     break
                 }

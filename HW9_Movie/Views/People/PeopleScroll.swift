@@ -8,48 +8,52 @@
 import SwiftUI
 
 class PeopleViewModel: ObservableObject {
-    @Published var jsonList = [Cast]()
+    @Published var castList: [Cast] = []
 
-    init(media: String, id: Int) {
-        loadcasts(media: media, id: id)
-    }
-
-    func loadcasts(media: String, id: Int) {
+    func loadCasts(media: String, id: Int) {
         guard let url = URL(string: getURLStringWithMediaAndID(query: "cast", media: media, id: id)) else {
-            print("Invalid URL (People Scroll)")
+            debugPrint("Invalid URL (People Scroll)")
             return
         }
         let request = URLRequest(url: url)
-        print(url)
+        debugPrint(url)
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let data = data {
-                if let decodedResponse = try? JSONDecoder().decode(CastList.self, from: data) {
-                    DispatchQueue.main.async {
-                        self.jsonList = decodedResponse.results
-                    }
-                    return
+            if let error = error {
+                debugPrint("Fetch failed: \(error.localizedDescription)")
+                return
+            }
+            
+            if let data = data, let decodedResponse = try? JSONDecoder().decode(CastList.self, from: data) {
+                DispatchQueue.main.async {
+                    self.castList = decodedResponse.results
                 }
             }
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (People Scroll)")")
         }.resume()
     }
 }
 
 struct PeopleScroll: View {
-    @ObservedObject var viewModel: PeopleViewModel
+    var media: String
+    var id: Int
+    @StateObject var viewModel = PeopleViewModel()
 
     var body: some View {
         VStack (alignment:.leading){
-            if(!viewModel.jsonList.isEmpty){
-                Text("Cast & Crew").font(.title).fontWeight(.bold)}
-            ScrollView(.horizontal, showsIndicators: false){
-                HStack(alignment: .top){
-                    ForEach(viewModel.jsonList){ item in
-                        PeopleItem(cast: item)
+            if !viewModel.castList.isEmpty {
+                Text("Cast & Crew")
+                    .font(.title)
+                    .fontWeight(.bold)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(alignment: .top) {
+                        ForEach(viewModel.castList) { item in
+                            PeopleItem(cast: item)
+                        }
                     }
-                }
+                }.padding(.horizontal)
             }
-        }.padding(.horizontal)
+        }.onAppear(perform: {
+            viewModel.loadCasts(media: media, id: id)
+        })
     }
 }
 

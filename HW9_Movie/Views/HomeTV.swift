@@ -59,11 +59,11 @@ struct HomeTV: View {
     
     func loadmovies() {
         guard let url = URL(string: getURLString(str: urlQuery)) else {
-            print("Invalid URL (HomeTV)")
+            debugPrint("Invalid URL (HomeTV)")
             return
         }
         let request = URLRequest(url: url)
-        print(url)
+        debugPrint(url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data = data {
                 if let decodedResponse = try? JSONDecoder().decode(MovieTVBriefList.self, from: data) {
@@ -76,7 +76,7 @@ struct HomeTV: View {
                 }
             }
             
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (HomeTV)")")
+            debugPrint("Fetch failed: \(error?.localizedDescription ?? "Unknown error (HomeTV)")")
         }.resume()
     }
 }

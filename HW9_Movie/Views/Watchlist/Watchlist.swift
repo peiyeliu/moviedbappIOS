@@ -14,7 +14,7 @@ struct Watchlist: View {
     @StateObject var ListData = WatchListModel()
     @State var idTaped : Int = 0
     @State var mediaTaped: String = ""
-
+    
     let colomns = Array(repeating: GridItem(.flexible(), spacing: 5), count: 3)
     
     var body: some View {
@@ -32,8 +32,8 @@ struct Watchlist: View {
                             ForEach(self.ListData.items, id: \.self){
                                 item in
                                 WatchItem(item: item).frame(height:200)
-                                }
                             }
+                        }
                         ).itemtoast(isPresented: self.$showToast) {
                             VStack(alignment: .leading){
                                 HStack {
@@ -48,8 +48,8 @@ struct Watchlist: View {
                                         UserDefaults.standard.removeObject(forKey: key)
                                     }
                                 }
-                                }
                             }
+                        }
                     }
                 }
             }.onAppear(perform: {
@@ -58,7 +58,7 @@ struct Watchlist: View {
             .navigationTitle("Watchlist").onAppear(perform: {
                 getUserDefaultData()
             })
-    
+            
         }
     }
     
@@ -95,7 +95,6 @@ struct Watchlist_Previews: PreviewProvider {
 class WatchListModel: ObservableObject{
     @Published var selectedTab = "device"
     @Published var items = [WatchListItem]()
-    
     @Published var currentPage: WatchListItem?
 }
 

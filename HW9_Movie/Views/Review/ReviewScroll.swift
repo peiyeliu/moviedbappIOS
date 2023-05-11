@@ -12,7 +12,7 @@ class ReviewScrollViewModel: ObservableObject {
     
     func loadreviews(media: String, id: Int) {
         guard let url = URL(string: getURLStringWithMediaAndID(query: "review", media: media, id: id)) else {
-            print("Invalid URL (ReviewScroll)")
+            debugPrint("Invalid URL (ReviewScroll)")
             return
         }
         let request = URLRequest(url: url)
@@ -26,7 +26,7 @@ class ReviewScrollViewModel: ObservableObject {
                     return
                 }
             }
-            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (ReviewScroll)")")
+            debugPrint("Fetch failed: \(error?.localizedDescription ?? "Unknown error (ReviewScroll)")")
         }.resume()
     }
 }
