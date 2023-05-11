@@ -19,7 +19,7 @@ struct HomeTV: View {
     var body: some View {
         
         ZStack {
-            //LoadViewer(shouldAnimate: $showLoadingPage)
+            LoadViewer(shouldAnimate: $showLoadingPage)
             ScrollView {
                 VStack(alignment: .leading){
                     Text("Trending")
@@ -43,10 +43,6 @@ struct HomeTV: View {
                 
 
             }
-            .navigationBarItems(trailing:
-                                    HStack{
-                
-            })
         }
         
         

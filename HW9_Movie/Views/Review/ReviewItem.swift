@@ -24,6 +24,7 @@ struct ReviewItem: View {
                     Text(review.content).font(.body).lineLimit(3)
                 }
                 .padding(.all)
+                .frame(minWidth: 0, maxWidth: .infinity) 
                 
             }.overlay(
                 RoundedRectangle(cornerRadius: 15)
