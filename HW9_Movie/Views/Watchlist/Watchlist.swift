@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Watchlist: View {
     
-    //@State var ItemList = [WatchListItem]()
+    @State var ItemList = [WatchListItem]()
     @State private var showToast: Bool = false
     @StateObject var ListData = WatchListModel()
     @State var idTaped : Int = 0
@@ -33,23 +33,7 @@ struct Watchlist: View {
                                 item in
                                 WatchItem(item: item).frame(height:200)
                             }
-                        }
-                        ).itemtoast(isPresented: self.$showToast) {
-                            VStack(alignment: .leading){
-                                HStack {
-                                    Text("Remove from WatchList")
-                                    Spacer()
-                                    Image(systemName: "bookmark").colorMultiply(.black)
-                                }.onTapGesture {
-                                    let key = mediaTaped + "/" + String(idTaped);
-                                    if(!isKeyPresentInUserDefaults(key: key)){
-                                    }
-                                    else{
-                                        UserDefaults.standard.removeObject(forKey: key)
-                                    }
-                                }
-                            }
-                        }
+                        })
                     }
                 }
             }.onAppear(perform: {
@@ -68,26 +52,21 @@ struct Watchlist: View {
             var media: String = ""
             var idStr: String = ""
             var array: [String] = []
+
             if(key.hasPrefix("movie")){
                 media = "movie"
-                array = key.components(separatedBy: "/")
+                array = key.components(separatedBy: "_")
             }
             else if(key.hasPrefix("tv")){
                 media = "tv"
-                array = key.components(separatedBy: "/")
+                array = key.components(separatedBy: "_")
             }
+
             if(array.count == 2){
                 idStr = array[1]
-                //debugPrint("\(media) and \(idStr)");
                 self.ListData.items.append(WatchListItem(id: Int(idStr)!, media: media, poster: value as! String))
             }
         }
-    }
-}
-
-struct Watchlist_Previews: PreviewProvider {
-    static var previews: some View {
-        Watchlist()
     }
 }
 

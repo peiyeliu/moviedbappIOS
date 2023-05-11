@@ -16,7 +16,7 @@ struct ResultPage: View {
     var id: Int
     
     @State private var showAlert = false
-    @State private var itemAdded = false
+    @State private var itemAdded: Bool = false
     @State private var isLoading = true // New state property for loading
     
     @StateObject private var viewModel = ResultPageViewModel()
@@ -95,9 +95,16 @@ struct ResultPage: View {
                         }
                     }
                     .onTapGesture {
-                        itemAdded = !itemAdded
-                        showAlert = !showAlert
-                        // TODO: ontap gesture for bookmark
+                        itemAdded.toggle()
+                        let key = "\(media)_\(id)"
+                        if itemAdded {
+                            UserDefaults.standard.set(viewModel.jsonData?.poster, forKey: key)
+                            debugPrint("item added: \(key)")
+                        } else {
+                            UserDefaults.standard.removeObject(forKey: key)
+                            debugPrint("item removed: \(key)")
+                        }
+                        self.showAlert = true
                     }
                     
                     Link(destination: URL(string: "https://www.facebook.com/sharer/sharer.php?u=https://youtu.be/\(viewModel.jsonData?.youtube ?? "")")!) {
@@ -110,6 +117,10 @@ struct ResultPage: View {
                         Image("twitter").resizable().frame(width: 20, height: 20)
                     }
                 }).onAppear(perform: {
+                    let key = "\(media)_\(id)"
+                    self.itemAdded = UserDefaults.standard.object(forKey: key) != nil
+                    debugPrint("\(media)_\(id)")
+                    debugPrint(itemAdded)
                     viewModel.loaddetail(media: media, id: id)
                 })
                 .onReceive(viewModel.$jsonData) { _ in
