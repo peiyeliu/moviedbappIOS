@@ -44,6 +44,7 @@ struct ReviewScroll: View {
             }
             ForEach(viewModel.jsonList){ item in
                 ReviewItem(review: item)
+                .frame(minWidth: 0, maxWidth: .infinity)
             }
         }.onAppear(perform: {
             viewModel.loadreviews(media: media, id: id)
