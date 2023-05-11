@@ -7,25 +7,10 @@
 
 import SwiftUI
 
-struct ReviewScroll: View {
-    var media: String
-    var id: Int
+class ReviewScrollViewModel: ObservableObject {
+    @Published var jsonList = [Review]()
     
-    @State private var jsonList = [Review]()
-    var body: some View {
-        VStack (alignment: .leading){
-            if(!jsonList.isEmpty){
-                Text("Reviews").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-            }
-            ForEach(self.jsonList){ item in
-                ReviewItem(review: item)
-            }
-        }.onAppear(perform: {
-            loadreviews()
-        }).padding(.horizontal)
-    }
-    
-    func loadreviews() {
+    func loadreviews(media: String, id: Int) {
         guard let url = URL(string: getURLStringWithMediaAndID(query: "review", media: media, id: id)) else {
             print("Invalid URL (ReviewScroll)")
             return
@@ -41,14 +26,27 @@ struct ReviewScroll: View {
                     return
                 }
             }
-
             print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (ReviewScroll)")")
         }.resume()
     }
 }
 
-struct ReviewScroll_Previews: PreviewProvider {
-    static var previews: some View {
-        ReviewScroll(media: "movie", id: 527774)
+struct ReviewScroll: View {
+    var media: String
+    var id: Int
+    
+    @StateObject var viewModel: ReviewScrollViewModel;
+    
+    var body: some View {
+        VStack (alignment: .leading){
+            if(!viewModel.jsonList.isEmpty){
+                Text("Reviews").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
+            }
+            ForEach(viewModel.jsonList){ item in
+                ReviewItem(review: item)
+            }
+        }.onAppear(perform: {
+            viewModel.loadreviews(media: media, id: id)
+        }).padding(.horizontal)
     }
 }

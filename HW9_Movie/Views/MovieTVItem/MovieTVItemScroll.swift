@@ -11,8 +11,8 @@ struct MovieTVItemScroll: View {
     var urlQuery: String;
     var header: String
     @State private var jsonList = [MovieTVBrief]()
-    
     @State private var selected: MovieTVBrief? = nil
+    
     var body: some View {
         VStack (alignment: .leading){
             if(!jsonList.isEmpty){
@@ -57,12 +57,5 @@ struct MovieTVItemScroll: View {
             print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (MovieTVItemScroll)")")
         }.resume()
     }
-
-
 }
 
-struct MovieTVItemScroll_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieTVItemScroll(urlQuery: "list/top/movie", header: "Recommended");
-    }
-}

@@ -30,8 +30,3 @@ struct ReviewPage: View {
     }
 }
 
-struct ReviewPage_Previews: PreviewProvider {
-    static var previews: some View {
-        ReviewPage(review: reviewsDemo[0])
-    }
-}

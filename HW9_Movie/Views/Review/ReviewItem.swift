@@ -34,8 +34,3 @@ struct ReviewItem: View {
     }
 }
 
-struct ReviewItem_Previews: PreviewProvider {
-    static var previews: some View {
-        ReviewItem(review: reviewsDemo[0])
-    }
-}

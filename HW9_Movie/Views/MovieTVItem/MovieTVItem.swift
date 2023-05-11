@@ -65,11 +65,6 @@ struct MovieTVItem: View {
     }
 }
 
-struct MovieTVItem_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieTVItem(item: currMoviesDemo[0]);
-    }
-}
 
 
 

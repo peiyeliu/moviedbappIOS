@@ -19,52 +19,64 @@ struct ResultPage: View {
     @State private var itemAdded: Bool = false
     @State private var refreshView: Bool = false
 
-
-
-    @State private var jsonData = MovieTVDetail(id: 0, year: "2022", media: "dummy", mediaStr: "dummy", name: "dummy", poster: "dummy", genre: "dummy", rate: "dummy", youtube: "dummy", overview: "dummy")
     
-    
+
+    @StateObject private var viewModel = ResultPageViewModel()
+    @StateObject var reviewViewModel = ReviewScrollViewModel()
     
     var body: some View {
         VStack {
             ScrollView {
                 VStack{
-                    YoutubePicker(text: jsonData.youtube)
-                }.frame(height: 220).padding(.horizontal)
+                    YoutubePicker(text: viewModel.jsonData.youtube)
+                        .frame(height: 220)
+                        .padding(.horizontal)
                     
-            
-                VStack (alignment: .leading){
-                    Text(jsonData.name).font(.title).fontWeight(.bold).padding(.horizontal)
-                    Text("\(jsonData.year) | \(jsonData.genre)").font(.title3).padding(.top, 5.0).padding(.horizontal)
-                    HStack{
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.red)
-                        Text("\(jsonData.rate)/5.0").font(.title3)
-                    }.padding(.top, 5.0).padding(.horizontal)
-            
-                    Description(text: jsonData.overview).padding(.top, 5.0)
-            
-                }
-                Divider()
-                VStack (alignment: .leading){
-                    PeopleScroll(media: media, id: id)
-                }
-                Divider()
-                VStack (alignment: .leading){
-                    ReviewScroll(media: media, id: id)
-                }
-                Divider()
-                VStack (alignment: .leading){
-                    MovieTVItemScroll(urlQuery: "recommend/\(media)/\(id)", header: "Recommended")
+                    VStack(alignment: .leading){
+                        Text(viewModel.jsonData.name)
+                            .font(.title)
+                            .fontWeight(.bold)
+                            .padding(.horizontal)
+                        
+                        Text("\(viewModel.jsonData.year) | \(viewModel.jsonData.genre)")
+                            .font(.title3)
+                            .padding(.top, 5.0)
+                            .padding(.horizontal)
+                        
+                        HStack{
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.red)
+                            Text("\(viewModel.jsonData.rate)/5.0")
+                                .font(.title3)
+                        }
+                        .padding(.top, 5.0)
+                        .padding(.horizontal)
+                        
+                        Description(text: viewModel.jsonData.overview)
+                            .padding(.top, 5.0)
+                        
+                        Divider()
+                        
+                        PeopleScroll(viewModel: PeopleViewModel(media: media, id: id))
+                        
+                        Divider()
+                        
+                        ReviewScroll(media: media, id: id, viewModel: reviewViewModel)
+                        
+                        Divider()
+                        
+                        MovieTVItemScroll(urlQuery: "recommend/\(media)/\(id)", header: "Recommended")
+                    }
+                    .padding(.horizontal)
                 }
             }.toast(isPresented: self.$showToast) {
                 VStack(alignment: .leading){
                     HStack {
                         if itemAdded && refreshView || !itemAdded && !refreshView {
-                            Text("\(jsonData.name) was added in WatchList")
+                            Text("\(viewModel.jsonData.name) was added in WatchList")
                         }
                         else{
-                            Text("\(jsonData.name) was removed from WatchList")
+                            Text("\(viewModel.jsonData.name) was removed from WatchList")
                         }
                     }
                 }
@@ -80,9 +92,9 @@ struct ResultPage: View {
                                 Image(systemName: "bookmark").colorMultiply(.black)
                             }
                         }.onTapGesture {
-                            let key = jsonData.media + "/" + String(id);
+                            let key = viewModel.jsonData.media + "/" + String(id);
                             if(!isKeyPresentInUserDefaults(key: key)){
-                                UserDefaults.standard.set(jsonData.poster, forKey: key)
+                                UserDefaults.standard.set(viewModel.jsonData.poster, forKey: key)
                                 debugPrint("item added !!!!!!!\(key)")
                                 itemAdded = true
                             }
@@ -98,7 +110,7 @@ struct ResultPage: View {
                             }
                         }
                         
-                        Link(destination: URL(string: "https://www.facebook.com/sharer/sharer.php?u=https://youtu.be/\(jsonData.youtube)")!){
+                        Link(destination: URL(string: "https://www.facebook.com/sharer/sharer.php?u=https://youtu.be/\(viewModel.jsonData.youtube)")!){
                             Image("facebook-app-symbol").resizable().frame(width: 20, height: 20)
                         }
                         
@@ -106,13 +118,19 @@ struct ResultPage: View {
                             Image("twitter").resizable().frame(width: 20, height: 20)
                         }
                     }).onAppear(perform: {
-                        loaddetail()
+                        viewModel.loaddetail(media: media, id: id)
                         itemAdded = UserDefaults.standard.bool(forKey: "itemAdded_\(media)_\(id)")
                     })
     }
     
     
-    func loaddetail() {
+
+}
+
+class ResultPageViewModel: ObservableObject {
+    @Published var jsonData = MovieTVDetail(id: 0, year: "2022", media: "dummy", mediaStr: "dummy", name: "dummy", poster: "dummy", genre: "dummy", rate: "dummy", youtube: "dummy", overview: "dummy")
+
+    func loaddetail(media: String, id: Int) {
         guard let url = URL(string: getURLStringWithMediaAndID(query: "watch", media: media, id: id)) else {
             print("Invalid URL (ResultPage)")
             return
@@ -122,11 +140,13 @@ struct ResultPage: View {
             if let data = data {
                 do {
                     let decodedData = try JSONDecoder().decode(MovieTVDetail.self,from: data)
-                        jsonData = decodedData
-                    } catch {
-                        print("movie tv detail decode error (ResultPage) ")
-                        print(url)
+                    DispatchQueue.main.async {
+                        self.jsonData = decodedData
                     }
+                } catch {
+                    print("movie tv detail decode error (ResultPage) ")
+                    print(url)
+                }
                 return
             }
             print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (ResultPage)")")
@@ -134,10 +154,3 @@ struct ResultPage: View {
     }
 }
 
-struct ResultPage_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            ResultPage(media: "movie", id: 527774)
-        }
-    }
-}

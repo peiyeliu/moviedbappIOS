@@ -22,8 +22,3 @@ struct PeopleItem: View {
     }
 }
 
-struct PeopleItem_Previews: PreviewProvider {
-    static var previews: some View {
-        PeopleItem(cast: castsDemo[0])
-    }
-}

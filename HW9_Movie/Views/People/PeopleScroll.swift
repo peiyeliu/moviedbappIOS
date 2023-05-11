@@ -7,27 +7,14 @@
 
 import SwiftUI
 
-struct PeopleScroll: View {
-    var media: String
-    var id: Int
-    
-    @State private var jsonList = [Cast]()
-    var body: some View {
-        
-        VStack (alignment:.leading){
-            if(!jsonList.isEmpty){
-                Text("Cast & Crew").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)}
-            ScrollView(.horizontal, showsIndicators: false){
-                HStack(alignment: .top){
-                    ForEach(self.jsonList){ item in
-                        PeopleItem(cast: item);
-                    }
-                }
-            }.onAppear(perform: {loadcasts()})
-        }.padding(.horizontal)
+class PeopleViewModel: ObservableObject {
+    @Published var jsonList = [Cast]()
+
+    init(media: String, id: Int) {
+        loadcasts(media: media, id: id)
     }
-    
-    func loadcasts() {
+
+    func loadcasts(media: String, id: Int) {
         guard let url = URL(string: getURLStringWithMediaAndID(query: "cast", media: media, id: id)) else {
             print("Invalid URL (People Scroll)")
             return
@@ -43,16 +30,26 @@ struct PeopleScroll: View {
                     return
                 }
             }
-
             print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (People Scroll)")")
         }.resume()
     }
-    
-    
 }
 
-struct PeopleScroll_Previews: PreviewProvider {
-    static var previews: some View {
-        PeopleScroll(media: "movie", id: 527774)
+struct PeopleScroll: View {
+    @ObservedObject var viewModel: PeopleViewModel
+
+    var body: some View {
+        VStack (alignment:.leading){
+            if(!viewModel.jsonList.isEmpty){
+                Text("Cast & Crew").font(.title).fontWeight(.bold)}
+            ScrollView(.horizontal, showsIndicators: false){
+                HStack(alignment: .top){
+                    ForEach(viewModel.jsonList){ item in
+                        PeopleItem(cast: item)
+                    }
+                }
+            }
+        }.padding(.horizontal)
     }
 }
+
