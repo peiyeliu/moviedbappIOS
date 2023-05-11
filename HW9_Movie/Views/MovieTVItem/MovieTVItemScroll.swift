@@ -7,37 +7,10 @@
 
 import SwiftUI
 
-struct MovieTVItemScroll: View {
-    var urlQuery: String;
-    var header: String
-    @State private var jsonList = [MovieTVBrief]()
-    @State private var selected: MovieTVBrief? = nil
+class MovieTVItemScrollViewModel: ObservableObject {
+    @Published var jsonList = [MovieTVBrief]()
     
-    var body: some View {
-        VStack (alignment: .leading){
-            if(!jsonList.isEmpty){
-                if(self.header.hasPrefix("Re")){
-                Text("\(self.header) \(jsonList[0].mediaStr)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                }else{
-                    Text("\(self.header)").font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/).fontWeight(.bold)
-                }
-            }
-            ScrollView(.horizontal, showsIndicators: false){
-                HStack(alignment: .top){
-                    ForEach(jsonList, id: \.self){ item in
-                        MovieTVItem(item: item)
-                            .blur(radius: self.selected != nil && self.selected != item ? 10 : 0)
-                        .scaleEffect(self.selected == item ? 1.2 : 1).padding(.horizontal)
-                        }
-                    }
-                }
-            }.onAppear(perform: {
-                loadmovies()
-        })
-        .padding(.horizontal)
-    }
-    
-    func loadmovies() {
+    func loadmovies(urlQuery: String) {
         guard let url = URL(string: getURLString(str: urlQuery)) else {
             print("Invalid URL (MovieTVItemScroll)")
             return
@@ -53,9 +26,38 @@ struct MovieTVItemScroll: View {
                     return
                 }
             }
-
             print("Fetch failed: \(error?.localizedDescription ?? "Unknown error (MovieTVItemScroll)")")
         }.resume()
     }
 }
 
+struct MovieTVItemScroll: View {
+    var urlQuery: String
+    var header: String
+    @State private var selected: MovieTVBrief? = nil
+    
+    @ObservedObject var viewModel: MovieTVItemScrollViewModel
+
+    var body: some View {
+        VStack (alignment: .leading){
+            if(!viewModel.jsonList.isEmpty){
+                if(self.header.hasPrefix("Re")){
+                    Text("\(self.header) \(viewModel.jsonList[0].mediaStr)").font(.title).fontWeight(.bold)
+                } else {
+                    Text("\(self.header)").font(.title).fontWeight(.bold)
+                }
+            }
+            ScrollView(.horizontal, showsIndicators: false){
+                HStack(alignment: .top){
+                    ForEach(viewModel.jsonList, id: \.self){ item in
+                        MovieTVItem(item: item)
+                            .blur(radius: self.selected != nil && self.selected != item ? 10 : 0)
+                            .scaleEffect(self.selected == item ? 1.2 : 1).padding(.horizontal)
+                    }
+                }
+            }
+        }.onAppear(perform: {
+            viewModel.loadmovies(urlQuery: urlQuery)
+        }).padding(.horizontal)
+    }
+}
